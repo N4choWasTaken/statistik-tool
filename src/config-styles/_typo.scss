@@ -1,0 +1,63 @@
+body {
+  font-family: $font-family;
+  font-weight: $font-weight-base;
+  font-style: normal;
+}
+
+h1 {
+  font-weight: 400;
+  font-size: 3.2rem;
+  line-height: 120%;
+
+  @include lg-up {
+    font-size: 5.6rem;
+  }
+}
+
+h2 {
+  font-weight: 400;
+  font-size: 2.8rem;
+  line-height: 120%;
+
+  @include lg-up {
+    font-size: 4.8rem;
+  }
+}
+
+h3 {
+  font-weight: 400;
+  font-size: 2.4rem;
+  line-height: 120%;
+
+  @include lg-up {
+    font-size: 3.2rem;
+  }
+}
+
+h4 {
+  font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 120%;
+}
+
+h5,
+h6 {
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 120%;
+}
+
+p {
+  text-rendering: auto;
+  font-weight: 300;
+  font-size: $font-size-base;
+  line-height: 135%;
+  margin-top: 0;
+  font-family: $font-family;
+}
+
+a {
+  text-decoration: none;
+  color: $secondary;
+  font-weight: 500;
+}

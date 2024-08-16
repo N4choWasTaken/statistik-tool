@@ -1,0 +1,85 @@
+// colors
+$primary: #014228;
+$secondary: #E3EAE7;
+
+$white:    #ffffff !default;
+$gray-100: #fcfcfc !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #c9c9c9 !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000000 !default;
+
+// fonts
+$font-family: 'Roboto', sans-serif;
+$font-weight-base: 400;
+$font-size-base: 1.6rem;
+
+html {
+  // important to set the html base to 10px
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $gray-100;
+}
+
+// Media queries
+// Phones
+$screen-sm-min: 25em;
+
+// Small tablets (portrait view)
+$screen-md-min: 40em;
+
+// Tablets and small desktops
+$screen-lg-min: 50em;
+
+// Large tablets and desktops
+$screen-xl-min: 64em;
+
+// Extra large screens
+$screen-xxl-min: 75em;
+
+
+//selecting Text on website
+::-moz-selection { /* Code for Firefox */
+  color: $white;
+  background: $primary;
+}
+
+::selection {
+  color: $white;
+  background: $primary;
+}
+
+//custom scrollbar
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+::-webkit-scrollbar-thumb {
+  background: $primary; 
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: $secondary;
+}
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
