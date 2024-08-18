@@ -2,14 +2,14 @@ import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import db from '../firebase'
 
-export interface Player {
+export interface User {
     id: string;
     Name: string;
     Number: number;
 }
 
 const usePlayers = () => {
-    const [players, setPlayers] = useState<Player[]>([]);
+    const [players, setPlayers] = useState<User[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<Error | null>(null);
 
@@ -17,10 +17,10 @@ const usePlayers = () => {
         const fetchUsers = async () => {
           try {
             const querySnapshot = await getDocs(collection(db, 'Players'));
-            const playerList: Player[] = querySnapshot.docs.map(doc => ({
+            const playerList: User[] = querySnapshot.docs.map(doc => ({
               id: doc.id,
               ...doc.data(),
-            })) as Player[];
+            })) as User[];
             setPlayers(playerList);
             setLoading(false);
           } catch (err) {
