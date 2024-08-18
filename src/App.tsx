@@ -1,14 +1,17 @@
 import React from 'react';
-import Home from './components/home/Home';
-import SimpleTable from './components/simpletable/SimpleTable';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Table from './pages/Table';
 
-function App() {
+const App: React.FC = () => {
   return (
-    <>
-      <Home/>
-      <SimpleTable/>
-    </>
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/table" element={<Table />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;
