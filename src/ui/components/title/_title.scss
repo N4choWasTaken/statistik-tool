@@ -1,0 +1,8 @@
+.title {
+  display: flex;
+  align-items: center;
+
+  & h3 {
+    margin: 0 0 0 2.1rem;
+  }
+}

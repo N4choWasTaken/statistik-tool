@@ -15,7 +15,7 @@
           width: 100%;
 
           & span {
-            width: 33%;
+            width: 100%;
             padding: 0.8rem 0.8rem 0 0.8rem;
             display: block;
             text-align: center;
@@ -42,7 +42,7 @@
 
         & span {
           padding: 0.8rem;
-          width: 33%;
+          width: 100%;
           display: block;
           text-align: center;
           border-left: 0.1rem solid $gray-400;
