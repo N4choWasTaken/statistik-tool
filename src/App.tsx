@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Landing from './pages/Landing';
-import Table from './pages/Table';
+import Landing from './ui/pages/Landing';
+import Table from './ui/pages/Table';
 
 const App: React.FC = () => {
   return (
