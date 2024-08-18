@@ -1,12 +1,28 @@
 import { useState, useEffect } from 'react';
 import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import db from "../firebase";
+import { Timestamp } from "firebase/firestore";
+import { DocumentReference } from "firebase/firestore";
+
+
+export interface Game {
+  id: string;
+  Date: Timestamp;
+  Hometeam: string;
+  Guestteam: string;
+}
+
+export interface Player {
+    id: string;
+    Attack: number;
+    Player: string | DocumentReference;
+  }
 
 export const useGame = (gameId: string) => {
-  const [gameData, setGameData] = useState<any | null>(null);
-  const [playersData, setPlayersData] = useState<any[]>([]);
+  const [gameData, setGameData] = useState<Game | null>(null);
+  const [playersData, setPlayersData] = useState<Player[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchGameAndPlayers = async () => {
@@ -21,7 +37,7 @@ export const useGame = (gameId: string) => {
         if (!gameDocSnap.exists()) {
           throw new Error('Game not found');
         }
-        const gameData = { id: gameDocSnap.id, ...gameDocSnap.data() };
+        const gameData = { id: gameDocSnap.id, ...gameDocSnap.data() } as Game;
         setGameData(gameData);
 
         // Reference to the "Players" subcollection within that game document
@@ -32,10 +48,10 @@ export const useGame = (gameId: string) => {
         const playersData = playersQuerySnapshot.docs.map(doc => ({
           id: doc.id,
           ...doc.data(),
-        }));
+        })) as Player[];
         setPlayersData(playersData);
-      } catch (error) {
-        setError(error.mesage);
+      } catch (err) {
+        setError(err as Error);
       } finally {
         setLoading(false);
       }
