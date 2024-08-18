@@ -1,4 +1,4 @@
-import SimpleTable from "../components/simpletable/SimpleTable";
+import SimpleTable from "../../ui/components/simpletable/SimpleTable";
 
 export default function Table() {
     return(

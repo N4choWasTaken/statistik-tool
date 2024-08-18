@@ -1,4 +1,13 @@
+import usePlayers from '../../../hooks/usePlayers'
+
 const SimpleTable = () => {
+
+  const { players, loading, error } = usePlayers();
+  console.log(players)
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
   return (
     <div className="section">
       <table className="simpletable">
@@ -8,10 +17,14 @@ const SimpleTable = () => {
         </tr>
 
         {/* loop here to spit out data */}
-        <tr className="simpletable__row">
-          <td className="simpletable__row__field">Thierry</td>
-          <td className="simpletable__row__field">#12</td>
-        </tr>
+        {
+          players.map(player => (
+            <tr className="simpletable__row" key={player.id}>
+              <td className="simpletable__row__field">{player.Name}</td>    
+              <td className="simpletable__row__field">#{player.Number}</td>
+            </tr>
+          ))
+        }
         {/* loop here to spit out data */}
       </table>
     </div>
