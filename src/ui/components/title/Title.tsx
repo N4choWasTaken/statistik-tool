@@ -1,14 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 type Props = {
   back: boolean;
   titleName: string;
 };
 const Title = ({ back, titleName }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <div className="section">
       <div className="title">
         {back ? (
           <div className="back">
-            <a href="/">
+            <a onClick={() => navigate(-1)}>
               <svg
                 width="23"
                 height="12"

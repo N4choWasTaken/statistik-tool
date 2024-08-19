@@ -1,5 +1,5 @@
 type Props = {
-  items: Array<{ key: number; name: string; href: string }>;
+  items: Array<{ key: string | number; name: string; href: string }>;
 };
 
 const ItemList = ({ items }: Props) => {
