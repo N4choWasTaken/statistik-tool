@@ -1,8 +1,6 @@
-# HU23 Statistik Tool - VBC Limmattal
+# 🏐 HU23 Statistik Tool - VBC Limmattal
 
-This is the repository for the HU23 Statistik Tool for the VBC Limmattal. The tool is used to track the statistics of the HU23 team in games during season.
-
-## Installation
+This is the repository for the ✨HU23 Statistik Tool✨ for the VBC Limmattal. The tool is used to track the statistics of the HU23 team in games during season.
 
 ## Installation
 
@@ -34,7 +32,6 @@ npm run dev
 
 5. Open your web browser and visit `http://localhost:5173` to access the HU23 Statistik Tool.
 
-
 ## Database
 
-Database is hosted on Firebase. To access the database, you need access to the Firebase project.
+Database is hosted on 🔥Firebase. To access the database, you need access to the Firebase project.
