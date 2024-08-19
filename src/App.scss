@@ -5,9 +5,15 @@
 @import '/src/config-styles/_utilities.scss';
 
 //components
+
+// tables
 @import '/src/ui/components/simpletable/simpletable.scss';
 @import '/src/ui/components/gametable/gametable.scss';
 @import '/src/ui/components/addstats/addstats.scss';
 @import '/src/ui/components/gamereplay/gamereplay.scss';
-@import '/src/ui/components/title/title.scss';
 @import '/src/ui/components/subplayer/subplayer.scss';
+
+// essentials
+@import '/src/ui/components/home/home.scss';
+@import '/src/ui/components/itemlist/itemlist.scss';
+@import '/src/ui/components/title/title.scss';
