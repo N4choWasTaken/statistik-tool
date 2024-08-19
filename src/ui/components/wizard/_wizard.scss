@@ -1,0 +1,73 @@
+.wizard {
+  margin-top: 5.4rem;
+
+  &__vs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    font-size: 3rem;
+  }
+
+  &__input {
+    width: 100%;
+    height: 5.2rem;
+    font-size: 2.1rem;
+    border: none;
+    border-bottom: 0.1rem solid $gray-400;
+    margin-bottom: 2.1rem;
+    transition: all 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-bottom: 0.1rem solid $black;
+    }
+
+    // if placeholder is not empty
+    &:not(:placeholder-shown) + .wizard__label {
+      top: -1.5rem;
+      font-size: 1.6rem;
+      color: $black;
+    }
+
+    // if selected
+    &:focus + .wizard__label {
+      top: -1.5rem;
+      font-size: 1.6rem;
+      color: $black;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__field {
+      position: relative;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    font-size: 2.1rem;
+    left: 0;
+    top: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  &__btn {
+    width: 100%;
+    height: 5.2rem;
+    font-size: 2.1rem;
+    border: none;
+    background-color: $black;
+    color: $white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2.1rem;
+
+    &:hover {
+      background-color: $gray-800;
+    }
+  }
+}

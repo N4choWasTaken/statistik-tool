@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface WithNavigationProps {
   onNext: () => void;
@@ -14,10 +14,10 @@ function withNavigation<T>(Component: React.ComponentType<T>) {
     return (
       <div>
         <Component {...(restProps as T)} />
-        <div style={{ marginTop: '20px' }}>
+        <div className="section">
           {!isFirstStep && <button onClick={onPrev}>Previous</button>}
-          <button onClick={onNext} style={{ marginLeft: '10px' }}>
-            {isLastStep ? 'Create Game' : 'Next'}
+          <button className="wizard__btn" onClick={onNext}>
+            {isLastStep ? "Create Game" : "Select Players"}
           </button>
         </div>
       </div>
