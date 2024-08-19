@@ -21,26 +21,28 @@ const AddStats = () => {
               </a>
               Attack - Player #12
             </th>
-            <th className="simpletable__title__field"></th>
-            <th className="simpletable__title__field"></th>
           </tr>
 
-          {/* loop here to spit out data */}
-          <tr className="simpletable__row">
+          <tr className="addstats__row simpletable__row">
             <td className="addstats__row__field simpletable__row__field">
-              <h3 className="addstats__row__field--title">Hit</h3>
-              <p className="addstats__row__field--stat">12</p>
+              <div className="addstats__row__field--wrapper">
+                <h3 className="addstats__row__field--title">Hit</h3>
+                <p className="addstats__row__field--stat">12</p>
+              </div>
             </td>
             <td className="addstats__row__field simpletable__row__field">
-              <h3 className="addstats__row__field--title">Kill</h3>
-              <p className="addstats__row__field--stat">12</p>
+              <div className="addstats__row__field--wrapper">
+                <h3 className="addstats__row__field--title">Hit</h3>
+                <p className="addstats__row__field--stat">12</p>
+              </div>
             </td>
             <td className="addstats__row__field simpletable__row__field">
-              <h3 className="addstats__row__field--title">Error</h3>
-              <p className="addstats__row__field--stat">12</p>
+              <div className="addstats__row__field--wrapper">
+                <h3 className="addstats__row__field--title">Hit</h3>
+                <p className="addstats__row__field--stat">12</p>
+              </div>
             </td>
           </tr>
-          {/* loop here to spit out data */}
         </tbody>
       </table>
     </div>
