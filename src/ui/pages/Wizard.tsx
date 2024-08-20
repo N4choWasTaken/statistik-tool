@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import db from "../../firebase";
 import Step1 from "../components/wizard/gameInfo";
+import Step2 from '../components/wizard/selectPlayers';
 
 const Wizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -46,10 +47,16 @@ const Wizard: React.FC = () => {
           onChange={handleChange}
           onNext={handleNext}
           onPrev={handlePrev}
-          isFirstStep={currentStep === 1}
+          isFirstStep={true}
         />
       )}
-      {currentStep === 2 && <div>new step</div>}
+      {currentStep === 2 && (
+        <Step2
+          onNext={handleNext}
+          onPrev={handlePrev}
+          isLastStep={true}
+        />
+        )}
     </div>
   );
 };
