@@ -33,9 +33,9 @@
       padding: 0.8rem;
       border-left: 0.1rem solid $gray-400;
     }
-  }
 
-  & tr:nth-child(2n+3) {
-    background-color: $secondary;
+    &--active {
+      background-color: $secondary;
+    }
   }
 }

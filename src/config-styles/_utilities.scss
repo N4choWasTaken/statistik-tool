@@ -1,5 +1,11 @@
 .section {
-    margin: 2.4rem;
+  margin: 2.4rem;
+}
+
+.tablehightlight {
+  & tr:nth-child(2n+3) {
+    background-color: $secondary;
+  }
 }
 
 /* HTML: <div class="loader"></div> */
