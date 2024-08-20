@@ -1,5 +1,6 @@
 import withNavigation from "../../../hoc/withNavigation";
 import usePlayers from "../../../hooks/usePlayers";
+import { mapToPlayer } from "../../../services/Wizard/selectPlayers";
 import PlayerTable from "./playerTable";
 
 const selectPlayers:React.FC = () => {
@@ -9,7 +10,7 @@ const selectPlayers:React.FC = () => {
     if (error) return <div>Error: {error.message}</div>;
     return (
         <>
-            <PlayerTable players={players} />
+            <PlayerTable players={mapToPlayer(players)} />
         </>
     );
 }

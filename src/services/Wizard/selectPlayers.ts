@@ -1,8 +1,8 @@
 import { User } from "../../hooks/usePlayers";
 
-type Player = User & {active: boolean}
+export type Player = User & {active: boolean}
 
-function mapToPlayer(users: User[]): Player[] {
+export function mapToPlayer(users: User[]): Player[] {
     return users.map(u => ({
         id: u.id,
         Name: u.Name,
@@ -11,14 +11,14 @@ function mapToPlayer(users: User[]): Player[] {
     }));
 }
 
-function setActivePlayers(players: Player[], newPlayer: Player) {
+export function setActivePlayers(players: Player[], newPlayer: Player): Player[] | false {
     const isActive = players.some(player => player.id === newPlayer.id)
 
     if (isActive)
         return players.filter(player => player.id !== newPlayer.id)
 
     if(checkForAmount(players))
-        return players
+        return false
 
     return [...players, newPlayer]
 }
