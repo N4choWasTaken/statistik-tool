@@ -1,3 +1,28 @@
 .section {
     margin: 2.4rem;
 }
+
+/* HTML: <div class="loader"></div> */
+.loader {
+  width: 6.7rem;
+  height: 7.1rem;
+  aspect-ratio: 1;
+  animation: l1 1s infinite;
+  font-size: 5rem;
+  filter: drop-shadow(0 0 5rem $black);
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #e3eae738;
+    width: 100%;
+  }
+}
+
+@keyframes l1 {to{transform: rotate(360deg)}}

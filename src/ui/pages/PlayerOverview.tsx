@@ -11,7 +11,12 @@ export default function PlayerOverview() {
     href: `/player/${player.id}`,
   }));
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="loader__wrapper">
+        <div className="loader">🏐</div>
+      </div>
+    );
   if (error) return <div>Error: {error.message}</div>;
 
   return (

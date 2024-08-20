@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
-import db from '../../firebase';
-import Step1 from '../components/wizard/gameInfo';
+import React, { useState } from "react";
+import { collection, addDoc } from "firebase/firestore";
+import db from "../../firebase";
+import Step1 from "../components/wizard/gameInfo";
 
 const Wizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -23,13 +23,13 @@ const Wizard: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      await addDoc(collection(db, 'Games'), {
+      await addDoc(collection(db, "Games"), {
         ...formData,
         Date: new Date(formData.date), // Convert date to a proper Date object
       });
-      alert('Game created successfully!');
+      alert("Game created successfully!");
     } catch (error) {
-      console.error('Error creating game:', error);
+      console.error("Error creating game:", error);
     }
   };
 
@@ -41,17 +41,15 @@ const Wizard: React.FC = () => {
     <div>
       {currentStep === 1 && (
         <Step1
-          hometeam={formData.hometeam || ''}
-          guestteam={formData.guestteam || ''}
+          hometeam={formData.hometeam || ""}
+          guestteam={formData.guestteam || ""}
           onChange={handleChange}
           onNext={handleNext}
           onPrev={handlePrev}
           isFirstStep={currentStep === 1}
         />
       )}
-      {currentStep === 2 && (
-        <div>new step</div>
-        )}
+      {currentStep === 2 && <div>new step</div>}
     </div>
   );
 };
