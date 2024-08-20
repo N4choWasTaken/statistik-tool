@@ -17,5 +17,12 @@ function setActivePlayers(players: Player[], newPlayer: Player) {
     if (isActive)
         return players.filter(player => player.id !== newPlayer.id)
 
+    if(checkForAmount(players))
+        return players
+
     return [...players, newPlayer]
+}
+
+function checkForAmount(players: Player[]): boolean {
+    return players.length == 7
 }
