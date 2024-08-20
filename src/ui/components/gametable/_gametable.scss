@@ -8,6 +8,7 @@
     &__row {
       &__field {
         text-align:center;
+        border-left: 0.1rem solid $gray-400;
 
         &--player {
             display: flex;

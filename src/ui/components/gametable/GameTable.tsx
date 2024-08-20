@@ -14,7 +14,7 @@ const GameTable = () => {
 
   return (
     <div className="section">
-      <table className="simpletable">
+      <table className="simpletable tablehightlight">
         <tbody>
           <tr className="simpletable__title">
             <th className="simpletable__title__field">Players</th>
