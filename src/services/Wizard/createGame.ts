@@ -9,7 +9,7 @@ import { Player } from "./selectPlayers";
 
 export type PlayerWithStats = Player & {attack: {error: number, kill: number, hits: number}, block: {error: number, kill: number}, service: {error: number, ace: number}, receive: {error: number, positive: number, negative: number}}
 
-export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[]) {
+export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[], gameFinished: boolean) {
     try {
         // check if user has selected at least 6 players
         if (players.length < 6) {
@@ -18,7 +18,7 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
         }
 
         // create a new game document
-        const newGameRef = await addDoc(collection(db, "Games"), {date, homeTeam, guestTeam});
+        const newGameRef = await addDoc(collection(db, "Games"), {date, homeTeam, guestTeam, gameFinished});
 
         // create a subcollection for players
         const playerCollectionRef = collection(newGameRef, "Players");

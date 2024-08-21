@@ -30,7 +30,8 @@ const Wizard: React.FC = () => {
         Timestamp.now(),
         formData.hometeam,
         formData.guestteam,
-        active
+        active,
+        false
       );
     } catch (error) {
       console.error("Error creating game:", error);
