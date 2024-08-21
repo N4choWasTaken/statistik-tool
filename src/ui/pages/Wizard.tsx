@@ -4,10 +4,12 @@ import Step1 from "../components/wizard/gameInfo";
 import Step2 from '../components/wizard/selectPlayers';
 import { createGame } from "../../services/Wizard/createGame";
 import usePlayers from "../../hooks/usePlayers";
+import { Player } from "../../services/Wizard/selectPlayers";
 
 const Wizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<any>({}); // create type
+  const [active, setActive] = useState<Player[]>([]) //Active Players
 
   const { players, loading, error } = usePlayers();
   
@@ -58,7 +60,9 @@ const Wizard: React.FC = () => {
           onNext={handleNext}
           onPrev={handlePrev}
           isLastStep={true}
-        />
+          active={active} 
+          setActive={setActive}
+          />
         )}
     </div>
   );
