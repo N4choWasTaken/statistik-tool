@@ -3,21 +3,19 @@
  * Player subcollection (User ref + active + stats)
  */
 
-import { Timestamp, addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { Timestamp, addDoc, collection } from "firebase/firestore";
 import db from '../../firebase';
 import { Player } from "./selectPlayers";
-import { User } from "../../hooks/usePlayers";
 
-export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: User[]) {
+export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[]) {
     try {
-
-        const id = crypto.randomUUID();
 
         const newGameRef = await addDoc(collection(db, "Games"), {date, homeTeam, guestTeam});
 
         const playerCollectionRef = collection(newGameRef, "Players");
 
         players.map(player => {
+            player.active = true;
             addDoc(playerCollectionRef, player)
         })
 
