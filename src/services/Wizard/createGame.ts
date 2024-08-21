@@ -7,6 +7,8 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 import db from '../../firebase';
 import { Player } from "./selectPlayers";
 
+type PlayerWithStats = Player & {attack: {error: number, kill: number, hits: number}, block: {error: number, kill: number}, service: {error: number, ace: number}, receive: {error: number, positive: number, negative: number}}
+
 export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[]) {
     try {
         // check if user has selected at least 6 players
@@ -24,7 +26,7 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
         // add active players to the subcollection
         players.map(player => {
             player.active = true;
-            addDoc(playerCollectionRef, player);
+            addDoc(playerCollectionRef, addStatsToPlayer(player));
         })
 
         // redirect to the active game with the new game id
@@ -33,4 +35,15 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
     } catch (e) {
         console.error("Error writing document: ", e);
     }
+}
+
+
+function addStatsToPlayer(player: Player): PlayerWithStats {
+    return {
+        ...player,
+        attack: { error: 0, kill: 0, hits: 0 },
+        block: { error: 0, kill: 0 },
+        service: { error: 0, ace: 0 },
+        receive: { error: 0, positive: 0, negative: 0 }
+    };
 }
