@@ -43,7 +43,9 @@ const SubPlayer = ({
   };
 
   return (
-    <div className={player ? "section subplayer" : "section d-none subplayer"}>
+    <div
+      className={allPlayers ? "section subplayer" : "section d-none subplayer"}
+    >
       <table className="simpletable tablehightlight">
         <tbody>
           <tr className="simpletable__title">

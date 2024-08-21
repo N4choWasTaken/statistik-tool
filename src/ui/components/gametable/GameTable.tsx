@@ -31,7 +31,6 @@ const GameTable = () => {
 
   // state for player data
   const [playerData, setPlayerData] = useState<null | unknown>(null);
-  const [allPlayers, setAllPlayer] = useState<null | unknown>(null);
   const [statMode, setStatMode] = useState<string | null>(null);
   const [statModeFields, setStatModeFields] = useState<object>({});
 
@@ -47,9 +46,8 @@ const GameTable = () => {
     document.querySelector(".addstats")?.classList.remove("d-none");
   };
 
-  const handleSubPlayerClick = (player: unknown, allPlayers: unknown) => {
+  const handleSubPlayerClick = (player: unknown) => {
     setPlayerData(player);
-    setAllPlayer(allPlayers);
     document.querySelector(".gametable")?.classList.add("d-none");
     document.querySelector(".subplayer")?.classList.remove("d-none");
   };
@@ -119,7 +117,7 @@ const GameTable = () => {
                 </td>
                 <td
                   className="gametable__row__field simpletable__row__field c-pointer"
-                  onClick={() => handleSubPlayerClick(player, players)}
+                  onClick={() => handleSubPlayerClick(player)}
                 >
                   <svg
                     width="18"

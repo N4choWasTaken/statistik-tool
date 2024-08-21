@@ -10,7 +10,7 @@ const AddStats = ({
 }: {
   player: Player;
   statMode: string;
-  statModeFields: object;
+  statModeFields: { [key: string]: unknown };
 }) => {
   if (!player) return null;
 
@@ -18,6 +18,13 @@ const AddStats = ({
     document.querySelector(".gametable")?.classList.remove("d-none");
     document.querySelector(".addstats")?.classList.add("d-none");
   };
+
+  const orderStatModeFields = Object.keys(statModeFields)
+    .sort()
+    .reduce((obj: { [key: string]: unknown }, key: string) => {
+      obj[key] = statModeFields[key];
+      return obj;
+    }, {});
 
   return (
     <div className={statMode ? "section addstats" : "section d-none addstats"}>
@@ -50,7 +57,7 @@ const AddStats = ({
           <tr className="addstats__row simpletable__row">
             {
               /* loop through here to spit out data, use key as title and value as text */
-              Object.entries(statModeFields).map(([key, value]) => (
+              Object.entries(orderStatModeFields).map(([key, value]) => (
                 <td
                   className="addstats__row__field simpletable__row__field"
                   key={key}
@@ -60,7 +67,7 @@ const AddStats = ({
                       {key}
                     </h3>
                     <p className="addstats__row__field--stat cappitalize">
-                      {value.toString()}
+                      {(value as string).toString()}
                     </p>
                   </div>
                 </td>
