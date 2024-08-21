@@ -7,7 +7,7 @@ import { Timestamp, addDoc, collection } from "firebase/firestore";
 import db from '../../firebase';
 import { Player } from "./selectPlayers";
 
-type PlayerWithStats = Player & {attack: {error: number, kill: number, hits: number}, block: {error: number, kill: number}, service: {error: number, ace: number}, receive: {error: number, positive: number, negative: number}}
+export type PlayerWithStats = Player & {attack: {error: number, kill: number, hits: number}, block: {error: number, kill: number}, service: {error: number, ace: number}, receive: {error: number, positive: number, negative: number}}
 
 export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[]) {
     try {
