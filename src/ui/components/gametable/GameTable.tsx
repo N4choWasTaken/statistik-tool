@@ -1,11 +1,24 @@
+import { useEffect } from "react";
 import { useGame } from "../../../hooks/useGame";
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
+import { load } from "../../../services/store/StatsStoreService";
 
 const GameTable = () => {
   // get gameId from url parameter gameid
   const queryParameters = new URLSearchParams(window.location.search);
   const gameid = queryParameters.get("gameid") ?? "";
   const game = useGame(gameid);
-  const players = game.playersData;
+  const players = useStore((state) => state.players);
+
+  const updatePlayer = useStore((state: PlayerStore) => state.updatePlayers)
+
+  useEffect( () =>{
+    async function handle() {
+      updatePlayer(await load(gameid))
+    }
+
+    handle()
+  }, [])
 
   return (
     <div className="section">

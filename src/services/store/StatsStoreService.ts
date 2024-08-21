@@ -2,7 +2,7 @@ import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore"
 import db from "../../firebase";
 import { PlayerWithStats } from "../Wizard/createGame";
 
-async function load(gameId: string) {
+export async function load(gameId: string) {
     try {
         const playersCollectionRef = collection(db, "Games", gameId, "Players");
         const playersSnapshot = await getDocs(playersCollectionRef);
