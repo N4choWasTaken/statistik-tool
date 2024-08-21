@@ -1,6 +1,6 @@
 const SubPlayer = () => {
   return (
-    <div className="section">
+    <div className="section d-none">
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">

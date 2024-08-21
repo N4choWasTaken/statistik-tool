@@ -1,11 +1,34 @@
-const AddStats = () => {
+interface Player {
+  Name: string;
+  Number: number;
+}
+
+const AddStats = ({
+  player,
+  statMode,
+  statModeFields,
+}: {
+  player: Player;
+  statMode: string;
+  statModeFields: object;
+}) => {
+  if (!player) return null;
+
+  const handleBack = () => {
+    document.querySelector(".gametable")?.classList.remove("d-none");
+    document.querySelector(".addstats")?.classList.add("d-none");
+  };
+
   return (
-    <div className="section">
+    <div className={statMode ? "section addstats" : "section d-none addstats"}>
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">
             <th className="simpletable__title__field">
-              <a className="addstats__title__field--back">
+              <a
+                className="addstats__title__field--back"
+                onClick={() => handleBack()}
+              >
                 <svg
                   width="23"
                   height="12"
@@ -19,29 +42,30 @@ const AddStats = () => {
                   />
                 </svg>
               </a>
-              Attack - Player #12
+              <span className="cappitalize">{statMode}</span> - {player.Name} #
+              {player.Number}
             </th>
           </tr>
 
           <tr className="addstats__row simpletable__row">
-            <td className="addstats__row__field simpletable__row__field">
-              <div className="addstats__row__field--wrapper">
-                <h3 className="addstats__row__field--title">Hit</h3>
-                <p className="addstats__row__field--stat">12</p>
-              </div>
-            </td>
-            <td className="addstats__row__field simpletable__row__field">
-              <div className="addstats__row__field--wrapper">
-                <h3 className="addstats__row__field--title">Hit</h3>
-                <p className="addstats__row__field--stat">12</p>
-              </div>
-            </td>
-            <td className="addstats__row__field simpletable__row__field">
-              <div className="addstats__row__field--wrapper">
-                <h3 className="addstats__row__field--title">Hit</h3>
-                <p className="addstats__row__field--stat">12</p>
-              </div>
-            </td>
+            {
+              /* loop through here to spit out data, use key as title and value as text */
+              Object.entries(statModeFields).map(([key, value]) => (
+                <td
+                  className="addstats__row__field simpletable__row__field"
+                  key={key}
+                >
+                  <div className="addstats__row__field--wrapper">
+                    <h3 className="addstats__row__field--title cappitalize">
+                      {key}
+                    </h3>
+                    <p className="addstats__row__field--stat cappitalize">
+                      {value.toString()}
+                    </p>
+                  </div>
+                </td>
+              ))
+            }
           </tr>
         </tbody>
       </table>

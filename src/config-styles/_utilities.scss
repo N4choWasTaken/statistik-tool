@@ -1,11 +1,24 @@
 .section {
   margin: 2.4rem;
+  position: relative;
 }
 
 .tablehightlight {
   & tr:nth-child(2n+3) {
     background-color: $secondary;
   }
+}
+
+.d-none {
+  display: none;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.cappitalize {
+  text-transform: capitalize;
 }
 
 /* HTML: <div class="loader"></div> */
