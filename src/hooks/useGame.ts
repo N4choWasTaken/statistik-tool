@@ -5,6 +5,7 @@ import { Timestamp } from "firebase/firestore";
 import { User } from './usePlayers';
 
 export interface Game {
+  [x: string]: any;
   id: string;
   Date: Timestamp;
   Hometeam: string;

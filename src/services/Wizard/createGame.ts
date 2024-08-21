@@ -29,7 +29,7 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
             player.active = true;
             await addDoc(playerCollectionRef, addStatsToPlayer(player));
         }));
-        
+
         window.location.href = `/game-active?gameid=${newGameRef.id}`;
 
     } catch (e) {
