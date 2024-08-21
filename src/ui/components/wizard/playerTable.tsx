@@ -1,23 +1,29 @@
-import { useState } from "react";
 import { Player, setActivePlayers } from "../../../services/Wizard/selectPlayers";
 
 interface PlayerTableProps {
     players: Player[]
+    active: Player[]
+    setActive: (value: Player[]) => void
 }
 
-const PlayerTable = (props: PlayerTableProps) => {
+const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
 
-    const [active, setActive] = useState<Player[]>([]) //Active Players
+  console.log(active)
 
-    function onSelect(player: Player) {
+    function onSelect(player: Player, e: any) {
 
         const newActive = setActivePlayers(active, player);
 
         if(!newActive)
             return
 
+        console.log(e)
         setActive(newActive)
-        player.active = !player.active
+
+    }
+
+    function isActive(player: Player) {
+      return active.some(p => p.id === player.id)
     }
 
   return (
@@ -29,8 +35,8 @@ const PlayerTable = (props: PlayerTableProps) => {
             <th className="simpletable__title__field"></th>
           </tr>
 
-          {props.players.map((player) => (
-            <tr onClick={() => onSelect(player)} className={player.active? "simpletable__row--active" :"simpletable__row"} key={player.id}>
+          {players.map((player) => (
+            <tr onClick={(e) => onSelect(player, e)} className={isActive(player) ? "simpletable__row--active" :"simpletable__row"} key={player.id}>
               <td className="simpletable__row__field">{player.Name}</td>
               <td className="simpletable__row__field">#{player.Number}</td>
             </tr>

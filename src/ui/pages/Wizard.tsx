@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { collection, addDoc, Timestamp } from "firebase/firestore";
-import db from "../../firebase";
+import { Timestamp } from "firebase/firestore";
 import Step1 from "../components/wizard/gameInfo";
 import Step2 from '../components/wizard/selectPlayers';
 import { createGame } from "../../services/Wizard/createGame";
@@ -30,8 +29,6 @@ const Wizard: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-
-    
     try {
       await createGame(Timestamp.now(), formData.hometeam, formData.guestteam, players)
       alert("Game created successfully!");
