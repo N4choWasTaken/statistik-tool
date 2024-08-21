@@ -1,11 +1,24 @@
-const SubPlayer = () => {
+interface Player {
+  Name: string;
+  Number: number;
+  active: boolean;
+}
+
+const SubPlayer = ({ player }: { player: Player }) => {
+  if (!player) return null;
+
+  const handleBack = () => {
+    document.querySelector(".gametable")?.classList.remove("d-none");
+    document.querySelector(".subplayer")?.classList.add("d-none");
+  };
+
   return (
-    <div className="section d-none">
+    <div className={player ? "section subplayer" : "section d-none subplayer"}>
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">
             <th className="subplayer__title__field simpletable__title__field">
-              <a className="addstats__title__field--back">
+              <a className="addstats__title__field--back" onClick={handleBack}>
                 <svg
                   width="23"
                   height="12"
@@ -19,7 +32,8 @@ const SubPlayer = () => {
                   />
                 </svg>
               </a>
-              Old Player - Player #12
+              Old Player - <span className="capitalized">{player.Name}</span> #
+              {player.Number}
             </th>
           </tr>
 
