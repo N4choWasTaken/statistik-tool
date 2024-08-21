@@ -24,12 +24,12 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
         const playerCollectionRef = collection(newGameRef, "Players");
 
         // add active players to the subcollection
-        players.map(player => {
+        // wait for every player to be loaded with promise, then redirect to the active game with the new game id
+        await Promise.all(players.map(async (player) => {
             player.active = true;
-            addDoc(playerCollectionRef, addStatsToPlayer(player));
-        })
-
-        // redirect to the active game with the new game id
+            await addDoc(playerCollectionRef, addStatsToPlayer(player));
+        }));
+        
         window.location.href = `/game-active?gameid=${newGameRef.id}`;
 
     } catch (e) {
