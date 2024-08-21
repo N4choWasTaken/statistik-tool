@@ -12,7 +12,7 @@ import PlayerDetail from "./ui/pages/PlayerDetail";
 
 const App: React.FC = () => {
   const { players } = usePlayers();
-  console.log(players);
+
   const allPlayerRoutes = players.map((player) => ({
     key: String(player.id),
     name: `${player.Name} #${player.Number}`,

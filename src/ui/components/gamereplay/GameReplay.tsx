@@ -1,9 +1,9 @@
-import { useGame } from "../../../hooks/useGame";
+// import { useGame } from "../../../hooks/useGame";
 
 const GameReplay = () => {
   // ID is getting passed in
-  const gameID = "mc4vTI1jCuqe1A2l6u4n";
-  console.log(useGame(gameID));
+  // const gameID = "mc4vTI1jCuqe1A2l6u4n";
+  // console.log(useGame(gameID));
 
   return (
     <div className="section">

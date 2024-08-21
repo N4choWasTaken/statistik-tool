@@ -1,11 +1,41 @@
+import usePlayers from "../../../hooks/usePlayers";
+
 interface Player {
+  id: string;
   Name: string;
   Number: number;
   active: boolean;
 }
 
-const SubPlayer = ({ player }: { player: Player }) => {
+const SubPlayer = ({
+  player,
+  allPlayers,
+}: {
+  player: Player;
+  allPlayers: unknown;
+}) => {
+  const { players, loading, error } = usePlayers();
+  const allActivePlayers: Player[] = allPlayers as Player[];
   if (!player) return null;
+
+  if (loading)
+    return (
+      <div className="loader__wrapper">
+        <div className="loader">🏐</div>
+      </div>
+    );
+  if (error) return <div>Error: {error.message}</div>;
+
+  // loop through all players and filter out the active players
+  players.forEach((player) => {
+    const tempId = player.id;
+    player.active = false;
+    allActivePlayers.forEach((activePlayer) => {
+      if (tempId === activePlayer.id) {
+        player.active = true;
+      }
+    });
+  });
 
   const handleBack = () => {
     document.querySelector(".gametable")?.classList.remove("d-none");
@@ -14,7 +44,7 @@ const SubPlayer = ({ player }: { player: Player }) => {
 
   return (
     <div className={player ? "section subplayer" : "section d-none subplayer"}>
-      <table className="simpletable">
+      <table className="simpletable tablehightlight">
         <tbody>
           <tr className="simpletable__title">
             <th className="subplayer__title__field simpletable__title__field">
@@ -32,17 +62,24 @@ const SubPlayer = ({ player }: { player: Player }) => {
                   />
                 </svg>
               </a>
-              Old Player - <span className="capitalized">{player.Name}</span> #
-              {player.Number}
+              Select New Player (Old Player -{" "}
+              <span className="capitalized">{player.Name}</span> #
+              {player.Number})
             </th>
           </tr>
 
           {/* loop here to spit out data */}
-          <tr className="simpletable__row">
-            <td className="subplayer__row__field simpletable__row__field">
-              NewPlayer #12
-            </td>
-          </tr>
+          {players.map((player) => {
+            if (!player.active) {
+              return (
+                <tr className="simpletable__row" key={player.id}>
+                  <td className="simpletable__row__field">
+                    <span>{player.Name}</span> <span>#{player.Number}</span>
+                  </td>
+                </tr>
+              );
+            }
+          })}
           {/* loop here to spit out data */}
         </tbody>
       </table>

@@ -4,7 +4,7 @@ import ItemList from "../components/itemlist/ItemList";
 
 export default function PlayerOverview() {
   const { players, loading, error } = usePlayers();
-  console.log(players);
+
   const item = players.map((player) => ({
     key: String(player.id),
     name: `${player.Name} #${player.Number}`,

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import db from '../firebase'
 
 export interface User {
+    active: boolean;
     id: string;
     Name: string;
     Number: number;

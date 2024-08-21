@@ -2,7 +2,6 @@ import usePlayers from "../../../hooks/usePlayers";
 
 const SimpleTable = () => {
   const { players, loading, error } = usePlayers();
-  console.log(players);
 
   if (loading)
     return (
