@@ -24,5 +24,6 @@ export function setActivePlayers(players: Player[], newPlayer: Player): Player[]
 }
 
 function checkForAmount(players: Player[]): boolean {
+    // 6 players min, 7 players max
     return players.length == 7
 }

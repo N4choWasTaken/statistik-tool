@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { Timestamp } from "firebase/firestore";
 import Step1 from "../components/wizard/gameInfo";
-import Step2 from '../components/wizard/selectPlayers';
+import Step2 from "../components/wizard/selectPlayers";
 import { createGame } from "../../services/Wizard/createGame";
 import { Player } from "../../services/Wizard/selectPlayers";
 
 const Wizard: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<any>({}); // create type
-  const [active, setActive] = useState<Player[]>([]) //Active Players
+  const [active, setActive] = useState<Player[]>([]); //Active Players
 
   const handleNext = () => {
     if (currentStep < 2) {
@@ -26,8 +26,12 @@ const Wizard: React.FC = () => {
 
   const handleSubmit = async () => {
     try {
-      await createGame(Timestamp.now(), formData.hometeam, formData.guestteam, active)
-      alert("Game created successfully!");
+      await createGame(
+        Timestamp.now(),
+        formData.hometeam,
+        formData.guestteam,
+        active
+      );
     } catch (error) {
       console.error("Error creating game:", error);
     }
@@ -54,10 +58,10 @@ const Wizard: React.FC = () => {
           onNext={handleNext}
           onPrev={handlePrev}
           isLastStep={true}
-          active={active} 
+          active={active}
           setActive={setActive}
-          />
-        )}
+        />
+      )}
     </div>
   );
 };

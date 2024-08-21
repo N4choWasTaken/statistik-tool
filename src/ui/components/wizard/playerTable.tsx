@@ -1,30 +1,26 @@
-import { Player, setActivePlayers } from "../../../services/Wizard/selectPlayers";
+import {
+  Player,
+  setActivePlayers,
+} from "../../../services/Wizard/selectPlayers";
 
 interface PlayerTableProps {
-    players: Player[]
-    active: Player[]
-    setActive: (value: Player[]) => void
+  players: Player[];
+  active: Player[];
+  setActive: (value: Player[]) => void;
 }
 
 const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
+  function onSelect(player: Player) {
+    const newActive = setActivePlayers(active, player);
 
-  console.log(active)
+    if (!newActive) return;
 
-    function onSelect(player: Player, e: any) {
+    setActive(newActive);
+  }
 
-        const newActive = setActivePlayers(active, player);
-
-        if(!newActive)
-            return
-
-        console.log(e)
-        setActive(newActive)
-
-    }
-
-    function isActive(player: Player) {
-      return active.some(p => p.id === player.id)
-    }
+  function isActive(player: Player) {
+    return active.some((p) => p.id === player.id);
+  }
 
   return (
     <div className="section">
@@ -36,12 +32,19 @@ const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
           </tr>
 
           {players.map((player) => (
-            <tr onClick={(e) => onSelect(player, e)} className={isActive(player) ? "simpletable__row--active" :"simpletable__row"} key={player.id}>
+            <tr
+              onClick={() => onSelect(player)}
+              className={
+                isActive(player)
+                  ? "simpletable__row--active"
+                  : "simpletable__row"
+              }
+              key={player.id}
+            >
               <td className="simpletable__row__field">{player.Name}</td>
               <td className="simpletable__row__field">#{player.Number}</td>
             </tr>
           ))}
-
         </tbody>
       </table>
     </div>
