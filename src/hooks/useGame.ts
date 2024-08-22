@@ -19,6 +19,7 @@ export interface Player {
 }
 
 export interface ResolvedPlayer extends Player {
+  [x: string]: any;
   Number: ReactNode;
   Name: ReactNode;
   playerDetails?: User; 
