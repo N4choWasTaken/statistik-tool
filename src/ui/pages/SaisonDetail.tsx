@@ -1,7 +1,6 @@
 import Title from "../components/title/Title";
 import ItemList from "../components/itemlist/ItemList";
 import { useSeason } from "../../hooks/useSeason";
-import { useGame } from "../../hooks/useGame";
 
 export default function SaisonOverview() {
   const queryParameters = new URLSearchParams(window.location.search);
