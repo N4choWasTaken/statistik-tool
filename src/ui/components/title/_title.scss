@@ -1,6 +1,12 @@
 .title {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
 
   & svg {
     margin-right: 2.1rem;
@@ -8,5 +14,10 @@
 
   & h3 {
     margin: 0;
+  }
+
+  &__subtitle {
+    margin-left: 2.1rem;
+    margin-bottom: 0;
   }
 }

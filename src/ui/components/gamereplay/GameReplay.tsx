@@ -6,14 +6,20 @@ const GameReplay = () => {
   const gameid = queryParameters.get("gameid") ?? "";
   const game = useGame(gameid);
   const allPlayers = game?.playersData;
+  // convert date to readable format
 
-  console.log(game);
+  const date = new Intl.DateTimeFormat("de-CH", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(game?.gameData?.date);
 
   return (
     <>
       <Title
         titleName={`${game?.gameData?.homeTeam} vs. ${game?.gameData?.guestTeam}`}
         back={true}
+        subtitle={date}
       />
       <div className="section">
         <table className="simpletable tablehightlight">

@@ -9,7 +9,7 @@ const gameInfo: React.FC<{
 }> = ({ hometeam, guestteam, onChange }) => {
   return (
     <>
-      <Title titleName="Create a new game" back={true} />
+      <Title titleName="Create a new game" back={true} subtitle="" />
       <div className="wizard section">
         <div className="wizard__input__wrapper">
           <div className="wizard__input__field">

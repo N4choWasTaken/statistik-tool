@@ -54,7 +54,7 @@ const GameTable = () => {
 
   return (
     <>
-      <Title titleName={gameTitle} back={false} />
+      <Title titleName={gameTitle} back={false} subtitle="" />
       <div className="section">
         <table className="gametable simpletable tablehightlight">
           <tbody>
