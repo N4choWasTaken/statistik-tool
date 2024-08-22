@@ -1,16 +1,28 @@
 import Title from "../components/title/Title";
 import ItemList from "../components/itemlist/ItemList";
-
-const item = [
-  { key: 1, name: "VBC March vs. VBC Limmattal", href: "/game-replay/gameID" },
-  { key: 2, name: "VBC March vs. VBC Limmattal", href: "/game-replay/gameID" },
-  { key: 3, name: "VBC March vs. VBC Limmattal", href: "/game-replay/gameID" },
-];
+import { useSeason } from "../../hooks/useSeason";
+import { useGame } from "../../hooks/useGame";
 
 export default function SaisonOverview() {
+  const queryParameters = new URLSearchParams(window.location.search);
+  const seasonid = queryParameters.get("seasonid") ?? "";
+  const seasonData = useSeason(seasonid);
+
+  const seasonGamesData = seasonData?.gameData;
+
+  const item = seasonGamesData?.map((game, index) => {
+    return {
+      key: index,
+      name: game.gameTitle,
+      href: game.gameFinished
+        ? `http://localhost:5173/game-replay?gameid=${game.gameId}`
+        : `http://localhost:5173/game-active?gameid=${game.gameId}`,
+    };
+  });
+
   return (
     <>
-      <Title titleName="Saison 24/25" back={true} />
+      <Title titleName={seasonData?.seasonData?.SeasonTitle} back={true} />
       <ItemList items={item} />
     </>
   );

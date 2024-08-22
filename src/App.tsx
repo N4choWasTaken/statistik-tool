@@ -9,6 +9,7 @@ import Wizard from "./ui/pages/Wizard";
 import PlayerOverview from "./ui/pages/PlayerOverview";
 import SaisonOverview from "./ui/pages/SaisonOverview";
 import PlayerDetail from "./ui/pages/PlayerDetail";
+import SaisonDetail from "./ui/pages/SaisonDetail";
 
 const App: React.FC = () => {
   const { players } = usePlayers();
@@ -28,7 +29,8 @@ const App: React.FC = () => {
         <Route path="/game-replay" element={<GameReplay />} />
         <Route path="/wizard" element={<Wizard />} />
         <Route path="/player" element={<PlayerOverview />} />
-        <Route path="/overview-saison" element={<SaisonOverview />} />
+        <Route path="/overview-season" element={<SaisonOverview />} />
+        <Route path="/season-detail/Season-24-25" element={<SaisonDetail />} />
         {allPlayerRoutes.map((player) => (
           <Route
             key={player.key}

@@ -9,6 +9,8 @@ interface PlayerTableProps {
   setActive: (value: Player[]) => void;
 }
 
+let selectedCounter = 0;
+
 const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
   function onSelect(player: Player) {
     const newActive = setActivePlayers(active, player);
@@ -19,6 +21,7 @@ const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
   }
 
   function isActive(player: Player) {
+    selectedCounter = active.length;
     return active.some((p) => p.id === player.id);
   }
 
@@ -27,7 +30,9 @@ const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">
-            <th className="simpletable__title__field">Players</th>
+            <th className="simpletable__title__field">
+              Players: ({selectedCounter})
+            </th>
             <th className="simpletable__title__field"></th>
           </tr>
 

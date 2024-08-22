@@ -11,7 +11,7 @@ const Title = ({ back, titleName }: Props) => {
     <div className="section">
       <div className="title">
         {back ? (
-          <div className="back">
+          <div className="back c-pointer">
             <a onClick={() => navigate(-1)}>
               <svg
                 width="23"
