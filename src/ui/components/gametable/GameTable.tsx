@@ -60,8 +60,8 @@ const GameTable = () => {
 
   return (
     <>
-      <Title titleName={gameTitle} back={false} subtitle="" />
       <div className="section">
+        <h3>{gameTitle}</h3>
         <table className="gametable simpletable tablehightlight">
           <tbody>
             <tr className="simpletable__title">
@@ -92,7 +92,7 @@ const GameTable = () => {
                   <span>{player.Name}</span> <span>#{player.Number}</span>
                 </td>
                 <td
-                  className="gametable__row__field simpletable__row__field c-pointer"
+                  className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                   onClick={() =>
                     handleStatClick(player, "attack", player.attack)
                   }
@@ -100,13 +100,13 @@ const GameTable = () => {
                   A
                 </td>
                 <td
-                  className="gametable__row__field simpletable__row__field c-pointer"
+                  className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                   onClick={() => handleStatClick(player, "block", player.block)}
                 >
                   B
                 </td>
                 <td
-                  className="gametable__row__field simpletable__row__field c-pointer"
+                  className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                   onClick={() =>
                     handleStatClick(player, "service", player.service)
                   }
@@ -114,7 +114,7 @@ const GameTable = () => {
                   S
                 </td>
                 <td
-                  className="gametable__row__field simpletable__row__field c-pointer"
+                  className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                   onClick={() =>
                     handleStatClick(player, "receive", player.receive)
                   }
@@ -122,7 +122,7 @@ const GameTable = () => {
                   R
                 </td>
                 <td
-                  className="gametable__row__field simpletable__row__field c-pointer"
+                  className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                   onClick={() => handleSubPlayerClick(player)}
                 >
                   <svg

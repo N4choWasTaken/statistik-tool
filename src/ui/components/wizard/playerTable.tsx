@@ -36,20 +36,22 @@ const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
             <th className="simpletable__title__field"></th>
           </tr>
 
-          {players.map((player) => (
-            <tr
-              onClick={() => onSelect(player)}
-              className={
-                isActive(player)
-                  ? "simpletable__row--active"
-                  : "simpletable__row"
-              }
-              key={player.id}
-            >
-              <td className="simpletable__row__field">{player.Name}</td>
-              <td className="simpletable__row__field">#{player.Number}</td>
-            </tr>
-          ))}
+          {players
+            .sort((a, b) => a.Number - b.Number)
+            .map((player) => (
+              <tr
+                onClick={() => onSelect(player)}
+                className={
+                  isActive(player)
+                    ? "simpletable__row--active c-pointer"
+                    : "c-pointer"
+                }
+                key={player.id}
+              >
+                <td className="simpletable__row__field">{player.Name}</td>
+                <td className="simpletable__row__field">#{player.Number}</td>
+              </tr>
+            ))}
         </tbody>
       </table>
     </div>

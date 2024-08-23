@@ -14,7 +14,7 @@ export default function PlayerOverview() {
 
   return (
     <>
-      <Title titleName="Übersicht Players" back={true} />
+      <Title titleName="Übersicht Players" back={true} subtitle="" />
       <div className="section">
         <table className="simpletable tablehightlight">
           <tbody>
@@ -22,18 +22,22 @@ export default function PlayerOverview() {
               <th className="simpletable__title__field">Players</th>
               <th className="simpletable__title__field"></th>
             </tr>
-
             {/* loop here to spit out data */}
-            {players.map((player) => (
-              <tr
-                className="simpletable__row"
-                key={player.id}
-                onClick={() => (window.location.href = `/player/${player.id}`)}
-              >
-                <td className="simpletable__row__field">{player.Name}</td>
-                <td className="simpletable__row__field">#{player.Number}</td>
-              </tr>
-            ))}
+            {/* sort players by Number */}
+            {players
+              .sort((a, b) => a.Number - b.Number)
+              .map((player) => (
+                <tr
+                  className="simpletable__row"
+                  key={player.id}
+                  onClick={() =>
+                    (window.location.href = `/player/${player.id}`)
+                  }
+                >
+                  <td className="simpletable__row__field">{player.Name}</td>
+                  <td className="simpletable__row__field">#{player.Number}</td>
+                </tr>
+              ))}
             {/* loop here to spit out data */}
           </tbody>
         </table>

@@ -61,6 +61,9 @@ const AddStats = ({
 
     // Now, update the store with the modified players array
     updatePlayer(updatedPlayers);
+
+    // go back to the gametable
+    handleBack();
   };
 
   return (
@@ -96,7 +99,7 @@ const AddStats = ({
               /* loop through here to spit out data, use key as title and value as text */
               Object.entries(orderStatModeFields).map(([key, value]) => (
                 <td
-                  className="addstats__row__field simpletable__row__field c-pointer"
+                  className="addstats__row__field simpletable__row__field c-pointer text-select-none"
                   key={key}
                   onClick={() => addStatOnClick(key)}
                 >

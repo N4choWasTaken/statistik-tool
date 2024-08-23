@@ -35,7 +35,11 @@ export default function PlayerDetail({ playerId }: Props) {
 
   return (
     <>
-      <Title titleName={`${player.Name} #${player.Number}`} back={true} />
+      <Title
+        titleName={`${player.Name} #${player.Number}`}
+        back={true}
+        subtitle=""
+      />
     </>
   );
 }

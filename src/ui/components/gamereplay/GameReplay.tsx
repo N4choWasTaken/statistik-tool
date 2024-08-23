@@ -33,6 +33,7 @@ const GameReplay = () => {
                   <span>Kills</span>
                   <span>Error</span>
                   <span>Kill%</span>
+                  <span>Effi.</span>
                 </div>
               </th>
               <th className="gametable__title__field simpletable__title__field">
@@ -71,9 +72,19 @@ const GameReplay = () => {
                       <span>{player.attack.kill}</span>
                       <span>{player.attack.error}</span>
                       <span>
-                        {((player.attack.kill - player.attack.error) /
-                          player.attack.hits) *
-                          100 || 0}
+                        {Math.max(
+                          (player.attack.kill / player.attack.hits) * 100 || 0,
+                          0
+                        ).toFixed(0)}
+                        %
+                      </span>
+                      <span>
+                        {Math.max(
+                          ((player.attack.kill - player.attack.error) /
+                            player.attack.hits) *
+                            100 || 0,
+                          0
+                        ).toFixed(0)}
                         %
                       </span>
                     </div>

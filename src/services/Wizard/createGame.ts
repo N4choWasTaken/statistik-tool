@@ -11,8 +11,8 @@ export type PlayerWithStats = Player & {attack: {error: number, kill: number, hi
 
 export async function createGame(date: Timestamp, homeTeam: string, guestTeam: string, players: Player[], gameFinished: boolean) {
     try {
-        // check if user has selected at least 6 players
-        if (players.length < 6) {
+        // check if user has selected at least 6 players and homeTeam and guestTeam are defined
+        if (players.length < 6 || !homeTeam || !guestTeam) {
             return;
         }
 
