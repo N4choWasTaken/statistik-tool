@@ -2,7 +2,7 @@ import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore"
 import db from "../../firebase";
 import { PlayerWithStats } from "../Wizard/createGame";
 
-export async function load(gameId: string) {
+export async function loadStore(gameId: string) {
     try {
         const playersCollectionRef = collection(db, "Games", gameId, "Players");
         const playersSnapshot = await getDocs(playersCollectionRef);
@@ -18,7 +18,7 @@ export async function load(gameId: string) {
     }
 }
 
-async function save(gameId: string, updatedPlayers: PlayerWithStats[]) {
+export async function saveStore(gameId: string, updatedPlayers: PlayerWithStats[]) {
     try {
         const updatePromises = updatedPlayers.map(async (player) => {
             const playerDocRef = doc(db, "Games", gameId, "Players", player.id);

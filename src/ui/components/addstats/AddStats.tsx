@@ -1,3 +1,5 @@
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
+
 interface Player {
   Name: string;
   Number: number;
@@ -11,7 +13,14 @@ const AddStats = ({
   player: Player;
   statMode: string;
   statModeFields: { [key: string]: unknown };
+  gameid: string;
 }) => {
+  const players = useStore(
+    (state: PlayerStore) => state.players as unknown as Player[]
+  );
+
+  const updatePlayer = useStore((state: PlayerStore) => state.updatePlayers);
+
   if (!player) return null;
 
   const handleBack = () => {
@@ -25,6 +34,34 @@ const AddStats = ({
       obj[key] = statModeFields[key];
       return obj;
     }, {});
+
+  const addStatOnClick = (key: string) => {
+    // Find the player in the players array
+    const playerIndex = players.findIndex(
+      (p) => p.Name === player.Name && p.Number === player.Number
+    );
+
+    if (playerIndex === -1) return; // Player not found, do nothing
+
+    // Get the correct player and statMode
+    const selectedPlayer = players[playerIndex];
+
+    // Dynamically increase the value of the specific stat (e.g., attack.error or service.ace)
+    if (
+      selectedPlayer[statMode] &&
+      selectedPlayer[statMode][key] !== undefined
+    ) {
+      selectedPlayer[statMode][key] =
+        (selectedPlayer[statMode][key] as number) + 1;
+    }
+
+    // Create a copy of the players array to avoid direct mutation
+    const updatedPlayers = [...players];
+    updatedPlayers[playerIndex] = { ...selectedPlayer };
+
+    // Now, update the store with the modified players array
+    updatePlayer(updatedPlayers);
+  };
 
   return (
     <div className={statMode ? "section addstats" : "section d-none addstats"}>
@@ -59,10 +96,11 @@ const AddStats = ({
               /* loop through here to spit out data, use key as title and value as text */
               Object.entries(orderStatModeFields).map(([key, value]) => (
                 <td
-                  className="addstats__row__field simpletable__row__field"
+                  className="addstats__row__field simpletable__row__field c-pointer"
                   key={key}
+                  onClick={() => addStatOnClick(key)}
                 >
-                  <div className="addstats__row__field--wrapper">
+                  <div className="addstats__row__field--wrapper c-pointer">
                     <h3 className="addstats__row__field--title cappitalize">
                       {key}
                     </h3>

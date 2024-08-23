@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGame } from "../../../hooks/useGame";
 import useStore, { PlayerStore } from "../../../stores/StatsStore";
-import { load } from "../../../services/store/StatsStoreService";
+import { loadStore } from "../../../services/store/StatsStoreService";
 import Title from "../title/Title";
 import SubPlayer from "../subplayer/SubPlayer";
 import AddStats from "../addstats/AddStats";
@@ -23,7 +23,7 @@ const GameTable = () => {
 
   useEffect(() => {
     async function handle() {
-      updatePlayer(await load(gameid));
+      updatePlayer(await loadStore(gameid));
     }
 
     handle();
@@ -51,6 +51,12 @@ const GameTable = () => {
     document.querySelector(".gametable")?.classList.add("d-none");
     document.querySelector(".subplayer")?.classList.remove("d-none");
   };
+
+  // beforeUnload event, to prevent accidental page reload, update the store with saveStore
+  window.addEventListener("beforeunload", async (event) => {
+    event.preventDefault();
+    // save store to firebase
+  });
 
   return (
     <>
@@ -142,6 +148,7 @@ const GameTable = () => {
         player={playerData}
         statMode={statMode ?? ""}
         statModeFields={statModeFields}
+        gameid={gameid}
       />
       <SubPlayer player={playerData} allPlayers={players} />
     </>
