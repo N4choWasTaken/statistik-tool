@@ -39,9 +39,6 @@ export default function SaisonOverview() {
               ...gameDocSnap.data(),
             } as Game;
 
-            // Log game data for debugging
-            console.log(gameDocSnap.data());
-
             return {
               key: gameData.id,
               name: `${gameData.homeTeam} vs ${gameData.guestTeam}`,
