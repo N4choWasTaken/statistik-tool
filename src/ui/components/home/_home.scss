@@ -20,6 +20,21 @@
     font-size: 2rem;
     color: $gray-900;
     font-weight: 400;
+    transition: all $ease;
+
+    & svg path {
+      transition: all $ease;
+    }
+  
+    &:hover {
+      background-color: $primary;
+      color: $white;
+
+      & svg path {
+        fill: $white;
+        stroke: $white;
+      }
+    }
 
     & h3 {
       margin: 0;

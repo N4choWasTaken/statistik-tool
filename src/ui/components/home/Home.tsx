@@ -15,9 +15,8 @@ const Home = () => {
         <h4>Create</h4>
         <div className="home__link__wrapper">
           <a className="home__link" href="/wizard">
-            New Game
             <svg
-              style={{ marginLeft: "10px" }}
+              style={{ marginRight: "10px" }}
               width="18"
               height="18"
               viewBox="0 0 25 25"
@@ -30,6 +29,7 @@ const Home = () => {
                 strokeWidth="2"
               />
             </svg>
+            New Game
           </a>
         </div>
         <h4>Overviews</h4>

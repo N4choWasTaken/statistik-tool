@@ -11,6 +11,22 @@
     font-size: 2rem;
     color: $gray-900;
     font-weight: 400;
+    transition: all $ease;
+
+    & svg path {
+      transition: all $ease;
+      transform: translateX(-0.5rem);
+    }
+  
+    &:hover {
+      background-color: $primary;
+      color: $white;
+
+      & svg path {
+        fill: $white;
+        transform: translateX(0rem);
+      }
+    }
 
     &__date {
       font-size: 1.6rem;
@@ -48,11 +64,30 @@
       font-size: 2rem;
       color: $gray-900;
       font-weight: 400;
+      transition: all $ease;
+
+      & svg path {
+        transition: all $ease;
+      }
+    
+      &:hover {
+        background-color: $primary;
+        color: $white;
+  
+        & svg path {
+          fill: $white;
+        }
+
+        & .itemlist__seasondetail__link__date {
+          color: $gray-300;
+        }
+      }
   
       &__date {
         font-size: 1.6rem;
         color: $gray-600;
         margin-bottom: 1rem;
+        transition: all $ease;
       }
   
       &__text {

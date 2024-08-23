@@ -19,6 +19,9 @@ $font-family: 'Roboto', sans-serif;
 $font-weight-base: 400;
 $font-size-base: 1.6rem;
 
+// ease function
+$ease: 0.3s cubic-bezier(0.58, 0.13, 0, 0.37);
+
 html {
   // important to set the html base to 10px
   font-size: 62.5%;
@@ -33,6 +36,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: $gray-100;
+  padding: 4.8rem 0;
 }
 
 // Media queries
