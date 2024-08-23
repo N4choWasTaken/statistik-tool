@@ -1,6 +1,11 @@
 .section {
-  margin: 2.4rem;
   position: relative;
+  max-width: 756px;
+  margin: 2.4rem;
+  
+  @include lg-up {
+    margin: 2.4rem auto;
+  }
 }
 
 .tablehightlight {

@@ -4,7 +4,7 @@ import ItemList from "../components/itemlist/ItemList";
 const item = [
   {
     key: 1,
-    name: "Season 24/25",
+    name: "Season 2024/25",
     href: "/season-detail/Season-24-25?seasonid=Season-24-25",
   },
 ];

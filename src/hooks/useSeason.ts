@@ -15,7 +15,6 @@ export interface GameId {
   gameTitle: any;
   gameFinished: any;
   gameId: any;
-  GameId: string;
 }
 
 export const useSeason = (seasonId: string) => {

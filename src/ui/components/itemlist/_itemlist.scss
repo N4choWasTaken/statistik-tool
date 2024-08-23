@@ -1,12 +1,75 @@
 .itemlist {
-  &__wrapper {
+  &__link {
+    height: 6rem;
+    width: 100%;
+    background-color: $secondary;
+    padding: 1.6rem;
+    border-radius: 1rem;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 2rem;
+    color: $gray-900;
+    font-weight: 400;
+
+    &__date {
+      font-size: 1.6rem;
+      color: $gray-600;
+      margin-bottom: 1rem;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+    }
 
     & h3 {
-      margin-top: 0;
-      margin-bottom: 1rem;
+      margin: 0;
+    } 
+
+    &__wrapper {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 1.6rem;
+    }
+  }
+
+  &__seasondetail {
+    &__link {
+      height: 10rem;
+      width: 100%;
+      background-color: $secondary;
+      padding: 1.6rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 2rem;
+      color: $gray-900;
+      font-weight: 400;
+  
+      &__date {
+        font-size: 1.6rem;
+        color: $gray-600;
+        margin-bottom: 1rem;
+      }
+  
+      &__text {
+        display: flex;
+        flex-direction: column;
+      }
+  
+      & h3 {
+        margin: 0;
+      } 
+  
+      &__wrapper {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1.6rem;
+      }
     }
   }
 }

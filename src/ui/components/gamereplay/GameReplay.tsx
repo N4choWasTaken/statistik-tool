@@ -7,12 +7,10 @@ const GameReplay = () => {
   const game = useGame(gameid);
   const allPlayers = game?.playersData;
   // convert date to readable format
-
-  const date = new Intl.DateTimeFormat("de-CH", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(game?.gameData?.date);
+  const date = new Date(game?.gameData?.date.toDate())
+    .toUTCString()
+    .toString()
+    .slice(4, 16);
 
   return (
     <>

@@ -22,7 +22,7 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
         // create a subcollection for players
         const playerCollectionRef = collection(newGameRef, "Players");
         // add game id to the season's game collection
-        await addDoc(collection(db, "Seasons/Season-24-25/GamesCollection"), {gameId: newGameRef.id, gameTitle: `${homeTeam} vs. ${guestTeam}`, gameFinished});
+        await addDoc(collection(db, "Seasons/Season-24-25/GamesCollection"), {gameId: newGameRef.id});
 
         // add active players to the subcollection
         // wait for every player to be loaded with promise, then redirect to the active game with the new game id
