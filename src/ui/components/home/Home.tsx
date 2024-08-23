@@ -19,14 +19,15 @@ const Home = () => {
               style={{ marginRight: "10px" }}
               width="18"
               height="18"
-              viewBox="0 0 25 25"
+              viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              className="home__link__creategameIcon"
             >
               <path
-                d="M12.0933 22.3333H4.41333C2.5282 22.3333 1 20.8051 1 18.92V4.41333C1 2.5282 2.5282 1 4.41333 1H18.92C20.8051 1 22.3333 2.5282 22.3333 4.41333V12.52M25 17.8533H11.0267M17.96 11.1333V24.5733"
+                d="M16.9991 12.6343H6.93804M11.9301 7.79586V17.4727M17 9.5V3C17 1.5 16.0001 1 14.5 1H3.50003C1.99999 1 1.00003 2 1.00003 3V14.5C1.00003 16 1.99999 17 3.50003 17H8.00003"
                 stroke="black"
-                strokeWidth="2"
+                strokeWidth="1.44"
               />
             </svg>
             New Game

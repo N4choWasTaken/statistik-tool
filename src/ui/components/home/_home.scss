@@ -8,7 +8,7 @@
   }
 
   &__link {
-    height: 10rem;
+    height: 8rem;
     width: 100%;
     background-color: $secondary;
     padding: 2.4rem;
@@ -44,6 +44,10 @@
       display: flex;
       justify-content: center;
       gap: 1.6rem;
+    }
+
+    &__creategameIcon path {
+      fill: none !important;
     }
   }
 }
