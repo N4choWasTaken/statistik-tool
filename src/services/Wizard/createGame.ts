@@ -17,7 +17,7 @@ export async function createGame(date: Timestamp, homeTeam: string, guestTeam: s
         }
 
         // create a new game document
-        const newGameRef = await addDoc(collection(db, "Games"), {date, homeTeam, guestTeam, gameFinished});
+        const newGameRef = await addDoc(collection(db, "Games"), {date, homeTeam, guestTeam, gameFinished, youtubeLink: "https://www.youtube.com/playlist?list=PL33YIE1L3ZpjeioenKAsaWc153jVsNyIg&playnext=1&index=1"});
 
         // create a subcollection for players
         const playerCollectionRef = collection(newGameRef, "Players");
