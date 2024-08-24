@@ -51,8 +51,12 @@ const AddStats = ({
       selectedPlayer[statMode] &&
       selectedPlayer[statMode][key] !== undefined
     ) {
-      selectedPlayer[statMode][key] =
-        (selectedPlayer[statMode][key] as number) + 1;
+      if (statMode == "attack" && key == "error" || key == "kill") {
+        selectedPlayer[statMode][key] = (selectedPlayer[statMode][key] as number) + 1;
+        selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
+      } else {
+        selectedPlayer[statMode][key] = (selectedPlayer[statMode][key] as number) + 1;
+      } 
     }
 
     // Create a copy of the players array to avoid direct mutation
