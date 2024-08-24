@@ -1,21 +1,50 @@
 .gametable {
-    &__title {
-      &__field {
-        text-align:center;
-      }
-    }
-  
-    &__row {
-      &__field {
-        text-align:center;
-        border-left: 0.1rem solid $gray-400;
+  &__menu {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 2.1rem;
 
-        &--player {
-            display: flex;
-            justify-content: space-between;
-            border-left: none;
-            padding: 0.8rem 1.2rem;
-        }
+    &__title {
+      margin: 0;
+    }
+
+    &__actions {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2.6rem;
+
+      &--save {
+        margin: 0;
+        font-size: 1.8rem;
+      }
+
+      &--finish {
+        margin: 0;
+        font-size: 1.8rem;
+        font-weight: 600;
       }
     }
+  }
+
+  &__title {
+    &__field {
+      text-align:center;
+    }
+  }
+
+  &__row {
+    &__field {
+      text-align:center;
+      border-left: 0.1rem solid $gray-400;
+
+      &--player {
+          display: flex;
+          justify-content: space-between;
+          border-left: none;
+          padding: 0.8rem 1.2rem;
+      }
+    }
+  }
   }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGame } from "../../../hooks/useGame";
 import useStore, { PlayerStore } from "../../../stores/StatsStore";
-import { loadStore } from "../../../services/store/StatsStoreService";
+import { loadStore, saveStore } from "../../../services/store/StatsStoreService";
 import Title from "../title/Title";
 import SubPlayer from "../subplayer/SubPlayer";
 import AddStats from "../addstats/AddStats";
@@ -55,13 +55,19 @@ const GameTable = () => {
   // beforeUnload event, to prevent accidental page reload, update the store with saveStore
   window.addEventListener("beforeunload", async (event) => {
     event.preventDefault();
-    // save store to firebase
   });
 
   return (
     <>
       <div className="section">
-        <h3>{gameTitle}</h3>
+        <div className="gametable__menu">
+          <h3 className="gametable__menu__title">{gameTitle}</h3>
+          <div className="gametable__menu__actions">
+            <p className="gametable__menu__actions--save c-pointer" onClick={() => saveStore(gameid, players)}>Save</p>
+            {/* todo: finish game, sets gameFinished true and saves all stats as is. */}
+            <p className="gametable__menu__actions--finish c-pointer">Finish</p>
+          </div>
+        </div>
         <table className="gametable simpletable tablehightlight">
           <tbody>
             <tr className="simpletable__title">
