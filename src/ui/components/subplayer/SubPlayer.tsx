@@ -1,4 +1,6 @@
 import usePlayers from "../../../hooks/usePlayers";
+import { PlayerWithStats } from "../../../services/Wizard/createGame";
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
 
 interface Player {
   id: string;
@@ -9,34 +11,89 @@ interface Player {
 
 const SubPlayer = ({
   player,
-  allPlayers,
 }: {
   player: Player;
-  allPlayers: unknown;
 }) => {
-  const { players, loading, error } = usePlayers();
-  const allActivePlayers: Player[] = allPlayers as Player[];
+  let { players } = usePlayers();
+
+  const storePlayers = useStore(
+    (state: PlayerStore) => state.players as unknown as Player[]
+  );
+
+  const updatePlayer = useStore((state: PlayerStore) => state.updatePlayers);
+
   if (!player) return null;
 
-  if (loading)
-    return (
-      <div className="loader__wrapper">
-        <div className="loader">🏐</div>
-      </div>
-    );
-  if (error) return <div>Error: {error.message}</div>;
-
-  // loop through all players and filter out the active players
-  players.forEach((player) => {
-    const tempId = player.id;
-    player.active = false;
-    allActivePlayers.forEach((activePlayer) => {
-      if (tempId === activePlayer.id) {
-        player.active = true;
-      }
+  const checkActivePlayers = () => {
+    players.forEach((player) => {
+      const tempId = player.id;
+      player.active = false;
+      storePlayers.forEach((activePlayer) => {
+        if (tempId === activePlayer.id) {
+          player.active = true;
+        }
+      });
     });
-  });
+  };
 
+  checkActivePlayers();
+  
+
+  const subPlayer = (newPlayer: Player) => {
+    // Find the player in the storePlayers array
+    const playerStoreIndex = storePlayers.findIndex(
+      (p) => p.Name === player.Name && p.Number === player.Number
+    );
+  
+    if (playerStoreIndex === -1) {
+      console.error("Player not found in storePlayers!");
+      return;
+    }
+  
+    // Log the player found
+    console.log("Old Player (store):", storePlayers[playerStoreIndex]);
+  
+    // Deactivate the current player in the store
+    const oldPlayer = storePlayers[playerStoreIndex];
+    const updatedOldPlayer = { ...oldPlayer, active: false };
+  
+    // Log the new player to substitute
+    console.log("Subbing in new player:", newPlayer);
+  
+    // Add stats to the new player
+    const playerWithStats: PlayerWithStats = {
+      ...newPlayer,
+      attack: { error: 0, kill: 0, hits: 0 },
+      block: { error: 0, kill: 0 },
+      service: { error: 0, ace: 0 },
+      receive: { error: 0, positive: 0, negative: 0 },
+      active: true,
+    };
+  
+    // Log the updated player with stats
+    console.log("New player with stats:", playerWithStats);
+  
+    // Update the storePlayers array immutably
+    const updatedPlayers = storePlayers.map((p, index) =>
+      index === playerStoreIndex ? updatedOldPlayer : p
+    );
+  
+    // Add the new player to the store
+    const finalPlayers = [...updatedPlayers, playerWithStats];
+  
+    // Log the final players array before updating
+    console.log("Final players array:", finalPlayers);
+  
+    // Update the store using updatePlayer
+    updatePlayer(finalPlayers);
+  
+    // Re-check active players in the UI
+    checkActivePlayers();
+  
+    // Debug log the players array
+    console.log("Updated players:", players);
+  };   
+  
   const handleBack = () => {
     document.querySelector(".gametable")?.classList.remove("d-none");
     document.querySelector(".subplayer")?.classList.add("d-none");
@@ -44,7 +101,7 @@ const SubPlayer = ({
 
   return (
     <div
-      className={allPlayers ? "section subplayer" : "section d-none subplayer"}
+      className={player ? "section subplayer" : "section d-none subplayer"}
     >
       <table className="simpletable tablehightlight">
         <tbody>
@@ -74,7 +131,7 @@ const SubPlayer = ({
           {players.map((player) => {
             if (!player.active) {
               return (
-                <tr className="simpletable__row" key={player.id}>
+                <tr onClick={() => subPlayer(player)} className="simpletable__row" key={player.id}>
                   <td className="simpletable__row__field">
                     <span>{player.Name}</span> <span>#{player.Number}</span>
                   </td>
