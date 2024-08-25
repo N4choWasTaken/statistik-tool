@@ -67,7 +67,19 @@ const GameTable = () => {
     event.preventDefault();
   });
 
-  async function finishGame() {
+  const saveStoreToDb = () => {
+    saveStore(gameid, players);
+    document
+      .querySelector(".savedWrapper")
+      ?.classList.add("savedWrapper__show");
+    setTimeout(() => {
+      document
+        .querySelector(".savedWrapper")
+        ?.classList.remove("savedWrapper__show");
+    }, 2300);
+  };
+
+  const finishGame = async () => {
     saveStore(gameid, players);
 
     try {
@@ -91,7 +103,7 @@ const GameTable = () => {
     } catch (error) {
       console.error("Error finishing the game:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -99,12 +111,34 @@ const GameTable = () => {
         <div className="gametable__menu">
           <h3 className="gametable__menu__title">{gameTitle}</h3>
           <div className="gametable__menu__actions">
-            <p
+            <div
               className="gametable__menu__actions--save c-pointer"
-              onClick={() => saveStore(gameid, players)}
+              onClick={() => saveStoreToDb()}
             >
-              Save
-            </p>
+              <div className="savedWrapper">
+                {" "}
+                <svg
+                  className="checkmark"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 52 52"
+                >
+                  {" "}
+                  <circle
+                    className="checkmark__circle"
+                    cx="26"
+                    cy="26"
+                    r="25"
+                    fill="none"
+                  />{" "}
+                  <path
+                    className="checkmark__check"
+                    fill="none"
+                    d="M14.1 27.2l7.1 7.2 16.7-16.8"
+                  />
+                </svg>
+              </div>
+              <p>Save</p>
+            </div>
             {/* todo: finish game, sets gameFinished true and saves all stats as is. */}
             <p
               className="gametable__menu__actions--finish c-pointer"
