@@ -19,8 +19,10 @@ export default function PlayerOverview() {
         <table className="simpletable tablehightlight">
           <tbody>
             <tr className="simpletable__title">
-              <th className="simpletable__title__field">Players</th>
-              <th className="simpletable__title__field"></th>
+              <th className="simpletable__title__field--playerdetail">
+                Players
+              </th>
+              <th className="simpletable__title__field--playerdetail"></th>
             </tr>
             {/* loop here to spit out data */}
             {/* sort players by Number */}

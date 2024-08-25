@@ -15,6 +15,7 @@ interface Player {
   block: StatCategory;
   service: StatCategory;
   receive: StatCategory;
+  gamesPlayed: number; // Added gamesPlayed field
   active?: boolean; // Optional property
 }
 
@@ -30,13 +31,15 @@ export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> 
         const playerSnapshot = await getDoc(playerDocRef);
         const existingPlayerData = playerSnapshot.data();
 
-        // Initialize default stats if not present
+        // Initialize default stats and gamesPlayed if not present
         const existingStats = {
           attack: existingPlayerData?.attack || { error: 0, kill: 0, hits: 0 },
           block: existingPlayerData?.block || { error: 0, kill: 0 },
           service: existingPlayerData?.service || { error: 0, ace: 0 },
           receive: existingPlayerData?.receive || { error: 0, positive: 0, negative: 0 },
         };
+
+        const existingGamesPlayed = existingPlayerData?.gamesPlayed || 0;
 
         // Merge the stats
         const mergedStats = {
@@ -46,11 +49,18 @@ export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> 
           receive: mergeStatCategories(existingStats.receive, player.receive),
         };
 
-        const { active, id, attack, block, service, receive, ...restOfPlayer } = player;
+        // Update gamesPlayed
+        const updatedGamesPlayed = (existingGamesPlayed || 0) + (player.gamesPlayed || 0);
+
+        const { active, id, attack, block, service, receive, gamesPlayed, ...restOfPlayer } = player;
         const updatedPlayerData = {
           ...existingPlayerData,
           ...restOfPlayer, // Update other player fields if necessary
-          ...mergedStats,  // Update merged stats
+          attack: mergedStats.attack,
+          block: mergedStats.block,
+          service: mergedStats.service,
+          receive: mergedStats.receive,
+          gamesPlayed: updatedGamesPlayed, // Update gamesPlayed
         };
 
         // Save the updated player data back to Firestore

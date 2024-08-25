@@ -68,6 +68,9 @@ export default function SaisonOverview() {
       />
       <div className="section">
         <div className="itemlist__seasondetail__link__wrapper">
+          {items.length === 0 && (
+            <div className="itemlist__link">No Games in this Season yet!</div>
+          )}
           {items
             .sort(
               (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
