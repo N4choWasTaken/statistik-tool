@@ -9,6 +9,7 @@ import SubPlayer from "../subplayer/SubPlayer";
 import AddStats from "../addstats/AddStats";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../../firebase";
+import { updateGlobalPlayerStats } from "../../../services/upload/updateGlobalPlayerStats";
 
 const GameTable = () => {
   // get gameId from url parameter gameid
@@ -96,13 +97,15 @@ const GameTable = () => {
         });
 
         console.log("Game finished successfully");
-        window.location.href = `/game-replay?gameid=${gameid}`;
       } else {
         console.log("No such game found");
       }
     } catch (error) {
       console.error("Error finishing the game:", error);
     }
+    // if done, then redirect to game
+    await updateGlobalPlayerStats(players);
+    window.location.href = `/game-replay?gameid=${gameid}`;
   };
 
   return (
