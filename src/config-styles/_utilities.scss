@@ -2,15 +2,30 @@
   position: relative;
   max-width: 756px;
   margin: 2.4rem;
-  
+
   @include lg-up {
     margin: 2.4rem auto;
   }
 }
 
 .tablehightlight {
-  & tr:nth-child(2n+3) {
-    background-color: $secondary;
+  & tr {
+    &:nth-child(2n + 3) {
+      background-color: $secondary;
+    }
+
+    &:last-child {
+      border-radius: 0 0 0 1rem;
+
+      & td {
+        &:nth-child(1) {
+          border-bottom-left-radius: 1rem;
+        }
+        &:last-child {
+          border-bottom-right-radius: 1rem;
+        }
+      }
+    }
   }
 }
 
@@ -55,4 +70,8 @@
   }
 }
 
-@keyframes l1 {to{transform: rotate(360deg)}}
+@keyframes l1 {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -278,7 +278,7 @@ const GameTable = () => {
                 </table>
               </div>
             ) : (
-              <a className="itemlist__link" href="/">
+              <a className="itemlist__link--error" href="/">
                 No games found, please select a valid game
               </a>
             )}

@@ -1,5 +1,5 @@
-import Title from "../components/title/Title";
-import usePlayers from "../../hooks/usePlayers";
+import Title from '../components/title/Title';
+import usePlayers from '../../hooks/usePlayers';
 
 type Props = {
   playerId: string;
@@ -17,8 +17,8 @@ export default function PlayerDetail({ playerId }: Props) {
     Number: string;
     Name: string;
   } = {
-    Name: "",
-    Number: "",
+    Name: '',
+    Number: '',
   };
 
   players.forEach((possiblePlayer) => {
@@ -62,7 +62,7 @@ export default function PlayerDetail({ playerId }: Props) {
               <td className="simpletable__row__field">{player.gamesPlayed}</td>
             </tr>
             <tr className="simpletable__row">
-              <td className="simpletable__row__field">Scored Points</td>
+              <td className="simpletable__row__field">Points scored</td>
               <td className="simpletable__row__field">
                 {player.attack.kill + player.block.kill + player.service.ace}
               </td>
