@@ -17,7 +17,7 @@
       transition: all $ease;
       transform: translateX(-0.5rem);
     }
-  
+
     &:hover {
       background-color: $primary;
       color: $white;
@@ -41,13 +41,41 @@
 
     & h3 {
       margin: 0;
-    } 
+    }
 
     &__wrapper {
       display: flex;
       justify-content: center;
       flex-direction: column;
       gap: 1.6rem;
+    }
+
+    &--error {
+      height: 6rem;
+      width: 100%;
+      background-color: $error;
+      padding: 1.6rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 2rem;
+      color: $white;
+      font-weight: 400;
+    }
+
+    &--notice {
+      height: 6rem;
+      width: 100%;
+      background-color: $notice;
+      padding: 1.6rem;
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 2rem;
+      color: $gray-900;
+      font-weight: 400;
     }
   }
 
@@ -69,11 +97,11 @@
       & svg path {
         transition: all $ease;
       }
-    
+
       &:hover {
         background-color: $primary;
         color: $white;
-  
+
         & svg path {
           fill: $white;
         }
@@ -82,23 +110,23 @@
           color: $gray-300;
         }
       }
-  
+
       &__date {
         font-size: 1.6rem;
         color: $gray-600;
         margin-bottom: 1rem;
         transition: all $ease;
       }
-  
+
       &__text {
         display: flex;
         flex-direction: column;
       }
-  
+
       & h3 {
         margin: 0;
-      } 
-  
+      }
+
       &__wrapper {
         display: flex;
         justify-content: center;

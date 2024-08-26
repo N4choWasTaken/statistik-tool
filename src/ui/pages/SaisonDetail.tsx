@@ -1,13 +1,13 @@
-import Title from "../components/title/Title";
-import db from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { useSeason } from "../../hooks/useSeason";
-import { Game } from "../../hooks/useGame";
-import { useEffect, useState } from "react";
+import Title from '../components/title/Title';
+import db from '../../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { useSeason } from '../../hooks/useSeason';
+import { Game } from '../../hooks/useGame';
+import { useEffect, useState } from 'react';
 
 export default function SaisonOverview() {
   const queryParameters = new URLSearchParams(window.location.search);
-  const seasonid = queryParameters.get("seasonid") ?? "";
+  const seasonid = queryParameters.get('seasonid') ?? '';
   const seasonData = useSeason(seasonid);
 
   const seasonGamesData = seasonData?.gameData;
@@ -28,10 +28,10 @@ export default function SaisonOverview() {
       try {
         const items = await Promise.all(
           seasonGamesData.map(async (game: { gameId: string }) => {
-            const gameDocRef = doc(db, "Games", game.gameId);
+            const gameDocRef = doc(db, 'Games', game.gameId);
             const gameDocSnap = await getDoc(gameDocRef);
             if (!gameDocSnap.exists()) {
-              throw new Error("Game not found");
+              throw new Error('Game not found');
             }
 
             const gameData = {
@@ -52,7 +52,7 @@ export default function SaisonOverview() {
         );
         setItems(items);
       } catch (error) {
-        console.error("Error fetching games:", error);
+        console.error('Error fetching games:', error);
       }
     };
 
@@ -69,7 +69,9 @@ export default function SaisonOverview() {
       <div className="section">
         <div className="itemlist__seasondetail__link__wrapper">
           {items.length === 0 && (
-            <div className="itemlist__link">No Games in this Season yet!</div>
+            <a className="itemlist__link--notice" href="/">
+              No Games in this Season yet!
+            </a>
           )}
           {items
             .sort(
@@ -89,7 +91,7 @@ export default function SaisonOverview() {
                 </div>
                 {item.gameFinished ? (
                   <svg
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: '10px' }}
                     width="23"
                     height="12"
                     viewBox="0 0 23 12"
@@ -103,7 +105,7 @@ export default function SaisonOverview() {
                   </svg>
                 ) : (
                   <svg
-                    style={{ marginLeft: "10px" }}
+                    style={{ marginLeft: '10px' }}
                     width="18"
                     height="18"
                     viewBox="0 0 18 18"

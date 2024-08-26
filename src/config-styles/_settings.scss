@@ -1,8 +1,12 @@
 // colors
 $primary: #014228;
-$secondary: #E3EAE7;
+$secondary: #e3eae7;
 
-$white:    #ffffff !default;
+// infos
+$error: #b90c0c;
+$notice: #a1b2d3;
+
+$white: #ffffff !default;
 $gray-100: #fcfcfc !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
@@ -12,7 +16,7 @@ $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
 $gray-900: #202020 !default;
-$black:    #000000 !default;
+$black: #000000 !default;
 
 // fonts
 $font-family: 'Roboto', sans-serif;
@@ -28,7 +32,9 @@ html {
   box-sizing: border-box;
 }
 
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
@@ -54,9 +60,9 @@ $screen-xl-min: 64em;
 // Extra large screens
 $screen-xxl-min: 75em;
 
-
 //selecting Text on website
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+  /* Code for Firefox */
   color: $white;
   background: $primary;
 }
@@ -71,7 +77,7 @@ $screen-xxl-min: 75em;
   width: 0.5rem;
 }
 ::-webkit-scrollbar-thumb {
-  background: $primary; 
+  background: $primary;
   border-radius: 1rem;
   transition: all 0.3s ease;
 }
