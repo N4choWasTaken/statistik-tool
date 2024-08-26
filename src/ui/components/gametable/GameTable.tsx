@@ -124,6 +124,11 @@ const GameTable = () => {
     window.location.href = `/game-replay?gameid=${gameid}`;
   };
 
+  const handleGameTimeoutClick = async () => {
+    await saveStoreToDb();
+    window.location.href = `/game-timeout?gameid=${gameid}`;
+  };
+
   return (
     <>
       <div className="section">
@@ -134,6 +139,14 @@ const GameTable = () => {
                 <div className="gametable__menu">
                   <h3 className="gametable__menu__title">{gameTitle}</h3>
                   <div className="gametable__menu__actions">
+                    <div className="gametable__menu__actions--timeout">
+                      <p
+                        onClick={() => handleGameTimeoutClick()}
+                        className="gametable__menu__actions c-pointer"
+                      >
+                        Timeout
+                      </p>
+                    </div>
                     <div
                       className="gametable__menu__actions--save c-pointer"
                       onClick={() => saveStoreToDb()}

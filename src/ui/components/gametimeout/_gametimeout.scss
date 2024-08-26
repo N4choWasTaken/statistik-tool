@@ -1,0 +1,80 @@
+.gametimeout {
+  &__tips {
+    width: 48.9% !important;
+
+    &__wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 1.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.6rem;
+    }
+  }
+
+  &__title {
+    vertical-align: baseline;
+
+    &__field {
+      &--wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        text-align: center;
+        font-size: 1.6rem;
+        text-align: left;
+        padding: 0;
+        width: 100%;
+
+        & span {
+          width: 100%;
+          padding: 0.8rem 0.8rem 0 0.8rem;
+          display: block;
+          text-align: center;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  &__links {
+    color: $black;
+
+    &__wrapper {
+      margin-top: 1.6rem;
+    }
+  }
+
+  &__row {
+    &__field {
+      text-align: center;
+      font-size: 1.6rem;
+      color: $black;
+      text-align: left;
+      border-left: 0.1rem solid $gray-400;
+      padding: 0;
+
+      &--wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      & span {
+        padding: 0.8rem;
+        width: 100%;
+        display: block;
+        text-align: center;
+        border-left: 0.1rem solid $gray-400;
+
+        &:first-child {
+          border-left: 0.1rem solid $black;
+        }
+      }
+    }
+  }
+
+  & tr:nth-child(2n + 3) {
+    background-color: $secondary;
+  }
+}

@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../../../hooks/useGame';
-import Title from '../title/Title';
 
-const GameReplay = () => {
+const GameTimeout = () => {
   const queryParameters = new URLSearchParams(window.location.search);
   const gameid = queryParameters.get('gameid') ?? '';
   const game = useGame(gameid);
@@ -16,9 +15,106 @@ const GameReplay = () => {
 
   const navigate = useNavigate();
 
+  const performanceRatingAttack = () => {
+    const attackRating = allPlayers?.map((player) => {
+      const attack = player.attack;
+      const attackRating =
+        attack.hits * 0 + attack.kill * 1 + attack.error * -1;
+      return attackRating;
+    });
+    // add every rating into one value
+    const totalAttackRating = attackRating?.reduce(
+      (acc, rating) => acc + rating,
+      0
+    );
+    if (totalAttackRating === 0) {
+      return ['Attacks are neutral', '--notice'];
+    } else if (totalAttackRating > 0) {
+      return ['Attacks are good, keep it up', ''];
+    } else {
+      return ['Attacks are bad, need to improve', '--error'];
+    }
+  };
+
+  const performanceRatingBlock = () => {
+    const blockRating = allPlayers?.map((player) => {
+      const block = player.block;
+      const blockRating = block.kill * 1 + block.error * -1;
+      return blockRating;
+    });
+    // add every rating into one value
+    const totalBlockRating = blockRating?.reduce(
+      (acc, rating) => acc + rating,
+      0
+    );
+    if (totalBlockRating === 0) {
+      return ['Blocks are neutral', '--notice'];
+    } else if (totalBlockRating > 0) {
+      return ['Blocks are good, keep it up!', ''];
+    } else {
+      return ['Too many block-errors, reduce!', '--error'];
+    }
+  };
+
+  const performanceRatingService = () => {
+    const serviceRating = allPlayers?.map((player) => {
+      const service = player.service;
+      const serviceRating = service.ace * 1 + service.error * -1;
+      return serviceRating;
+    });
+    // add every rating into one value
+    const totalServiceRating = serviceRating?.reduce(
+      (acc, rating) => acc + rating,
+      0
+    );
+    if (totalServiceRating === 0) {
+      return ['Service are neutral', '--notice'];
+    } else if (totalServiceRating > 0) {
+      return ['Service are good, keep it up!', ''];
+    } else {
+      return ['Too many service-errors, reduce!', '--error'];
+    }
+  };
+
+  const performanceRatingReceive = () => {
+    const receiveRating = allPlayers?.map((player) => {
+      const receive = player.receive;
+      const receiveRating =
+        receive.positive * +2 + receive.negative * -1 + receive.error * -2;
+      return receiveRating;
+    });
+    // add every rating into one value
+    const totalReceiveRating = receiveRating?.reduce(
+      (acc, rating) => acc + rating,
+      0
+    );
+    if (totalReceiveRating === 0) {
+      return ['Receives are neutral', '--notice'];
+    } else if (totalReceiveRating > 0) {
+      return ['Receives are good, keep it up!', ''];
+    } else {
+      return ['Too many receives-errors, reduce!', '--error'];
+    }
+  };
+
+  const performanceRatingTips: { [key: string]: string[] }[] = [
+    {
+      Attack: performanceRatingAttack(),
+    },
+    {
+      Block: performanceRatingBlock(),
+    },
+    {
+      Service: performanceRatingService(),
+    },
+    {
+      Receive: performanceRatingReceive(),
+    },
+  ];
+
   return (
     <>
-      {gameTitle !== 'undefined vs. undefined' ? (
+      {gameTitle ? (
         <div>
           <div className="section">
             <div className="title">
@@ -42,45 +138,38 @@ const GameReplay = () => {
 
                 <h3>{gameTitle}</h3>
               </div>
-              <p className="title__subtitle">
-                <a
-                  className="gamereplay__links"
-                  target="_blank"
-                  href={game.gameData?.youtubeLink}
-                >
-                  <svg
-                    height="28px"
-                    width="28px"
-                    version="1.1"
-                    id="Layer_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 461.001 461.001"
-                  >
-                    <g>
-                      <path
-                        style={{ fill: '#014228' }}
-                        d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
-		c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137
-		C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607
-		c0-3.774,3.982-6.22,7.348-4.514l126.06,63.881C304.363,229.873,304.298,235.248,300.506,237.056z"
-                      />
-                    </g>
-                  </svg>
-                </a>
-                {date}
-              </p>
+              <p className="title__subtitle">{date}</p>
             </div>
           </div>
           <div className="section">
+            <div className="gametimeout__tips__wrapper">
+              {performanceRatingTips.map(
+                (tip: { [key: string]: string[] }, index) => (
+                  <div
+                    key={index}
+                    className={`gametimeout__tips itemlist__link${
+                      tip[Object.keys(tip)[0]][1]
+                    }`}
+                  >
+                    {/* display tip.key and tip.value */}
+                    {Object.entries(tip).map(([key, value]) => (
+                      <p style={{ marginBottom: '0' }} key={key}>
+                        <b>{key}</b>: {value[0]}
+                      </p>
+                    ))}
+                  </div>
+                )
+              )}
+            </div>
             <table className="simpletable tablehightlight">
               <tbody>
                 <tr className="simpletable__title">
-                  <th className="gamereplay__title simpletable__title__field">
+                  <th className="gametimeout__title simpletable__title__field">
                     Player
                   </th>
                   <th className="gametable__title__field simpletable__title__field">
                     Attack
-                    <div className="gamereplay__title__field--wrapper">
+                    <div className="gametimeout__title__field--wrapper">
                       <span>Hits</span>
                       <span>Kills</span>
                       <span>Error</span>
@@ -90,21 +179,21 @@ const GameReplay = () => {
                   </th>
                   <th className="gametable__title__field simpletable__title__field">
                     Block
-                    <div className="gamereplay__title__field--wrapper">
+                    <div className="gametimeout__title__field--wrapper">
                       <span>Kill</span>
                       <span>Error</span>
                     </div>
                   </th>
                   <th className="gametable__title__field simpletable__title__field">
                     Service
-                    <div className="gamereplay__title__field--wrapper">
+                    <div className="gametimeout__title__field--wrapper">
                       <span>Ace</span>
                       <span>Error</span>
                     </div>
                   </th>
                   <th className="gametable__title__field simpletable__title__field">
                     Receive
-                    <div className="gamereplay__title__field--wrapper">
+                    <div className="gametimeout__title__field--wrapper">
                       <span>Pos.</span>
                       <span>Neg.</span>
                       <span>Error</span>
@@ -118,8 +207,8 @@ const GameReplay = () => {
                       <td className="gametable__row__field--player simpletable__row__field">
                         {player.Name}
                       </td>
-                      <td className="gamereplay__row__field">
-                        <div className="gamereplay__row__field--wrapper">
+                      <td className="gametimeout__row__field">
+                        <div className="gametimeout__row__field--wrapper">
                           <span>{player.attack.hits}</span>
                           <span>{player.attack.kill}</span>
                           <span>{player.attack.error}</span>
@@ -142,20 +231,20 @@ const GameReplay = () => {
                           </span>
                         </div>
                       </td>
-                      <td className="gamereplay__row__field">
-                        <div className="gamereplay__row__field--wrapper">
+                      <td className="gametimeout__row__field">
+                        <div className="gametimeout__row__field--wrapper">
                           <span>{player.block.kill}</span>
                           <span>{player.block.error}</span>
                         </div>
                       </td>
-                      <td className="gamereplay__row__field">
-                        <div className="gamereplay__row__field--wrapper">
+                      <td className="gametimeout__row__field">
+                        <div className="gametimeout__row__field--wrapper">
                           <span>{player.service.ace}</span>
                           <span>{player.service.error}</span>
                         </div>
                       </td>
-                      <td className="gamereplay__row__field">
-                        <div className="gamereplay__row__field--wrapper">
+                      <td className="gametimeout__row__field">
+                        <div className="gametimeout__row__field--wrapper">
                           <span>{player.receive.positive}</span>
                           <span>{player.receive.negative}</span>
                           <span>{player.receive.error}</span>
@@ -180,4 +269,4 @@ const GameReplay = () => {
   );
 };
 
-export default GameReplay;
+export default GameTimeout;
