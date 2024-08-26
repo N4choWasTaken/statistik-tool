@@ -1,5 +1,5 @@
-import { doc, getDoc, setDoc, collection } from "firebase/firestore";
-import db from "../../firebase";
+import { doc, getDoc, setDoc, collection } from 'firebase/firestore';
+import db from '../../firebase';
 
 interface StatCategory {
   [key: string]: number;
@@ -19,9 +19,11 @@ interface Player {
   active?: boolean; // Optional property
 }
 
-export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> => {
+export const updateGlobalPlayerStats = async (
+  players: Player[]
+): Promise<void> => {
   try {
-    const playerCollectionRef = collection(db, "Players");
+    const playerCollectionRef = collection(db, 'Players');
 
     await Promise.all(
       players.map(async (player) => {
@@ -36,7 +38,11 @@ export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> 
           attack: existingPlayerData?.attack || { error: 0, kill: 0, hits: 0 },
           block: existingPlayerData?.block || { error: 0, kill: 0 },
           service: existingPlayerData?.service || { error: 0, ace: 0 },
-          receive: existingPlayerData?.receive || { error: 0, positive: 0, negative: 0 },
+          receive: existingPlayerData?.receive || {
+            error: 0,
+            positive: 0,
+            negative: 0,
+          },
         };
 
         const existingGamesPlayed = existingPlayerData?.gamesPlayed || 0;
@@ -50,9 +56,18 @@ export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> 
         };
 
         // Update gamesPlayed
-        const updatedGamesPlayed = (existingGamesPlayed || 0) + (player.gamesPlayed || 0);
+        const updatedGamesPlayed = (existingGamesPlayed || 0) + 1;
 
-        const { active, id, attack, block, service, receive, gamesPlayed, ...restOfPlayer } = player;
+        const {
+          active,
+          id,
+          attack,
+          block,
+          service,
+          receive,
+          gamesPlayed,
+          ...restOfPlayer
+        } = player;
         const updatedPlayerData = {
           ...existingPlayerData,
           ...restOfPlayer, // Update other player fields if necessary
@@ -68,15 +83,18 @@ export const updateGlobalPlayerStats = async (players: Player[]): Promise<void> 
       })
     );
 
-    console.log("All player data successfully updated!");
+    console.log('All player data successfully updated!');
   } catch (error) {
-    console.error("Error updating player data: ", error);
+    console.error('Error updating player data: ', error);
     throw error;
   }
 };
 
 // Helper function to merge individual stat categories
-const mergeStatCategories = (existingCategory: StatCategory, newCategory: StatCategory): StatCategory => {
+const mergeStatCategories = (
+  existingCategory: StatCategory,
+  newCategory: StatCategory
+): StatCategory => {
   const mergedCategory: StatCategory = { ...existingCategory };
 
   for (const key in newCategory) {
@@ -87,4 +105,3 @@ const mergeStatCategories = (existingCategory: StatCategory, newCategory: StatCa
 
   return mergedCategory;
 };
-
