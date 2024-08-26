@@ -1,4 +1,4 @@
-import useStore, { PlayerStore } from "../../../stores/StatsStore";
+import useStore, { PlayerStore } from '../../../stores/StatsStore';
 
 interface Player {
   Name: string;
@@ -9,11 +9,13 @@ const AddStats = ({
   player,
   statMode,
   statModeFields,
+  onBack,
 }: {
   player: Player;
   statMode: string;
   statModeFields: { [key: string]: unknown };
   gameid: string;
+  onBack: () => void;
 }) => {
   const players = useStore(
     (state: PlayerStore) => state.players as unknown as Player[]
@@ -24,8 +26,8 @@ const AddStats = ({
   if (!player) return null;
 
   const handleBack = () => {
-    document.querySelector(".gametable")?.classList.remove("d-none");
-    document.querySelector(".addstats")?.classList.add("d-none");
+    document.querySelector('.gametable')?.classList.remove('d-none');
+    document.querySelector('.addstats')?.classList.add('d-none');
   };
 
   const orderStatModeFields = Object.keys(statModeFields)
@@ -51,12 +53,14 @@ const AddStats = ({
       selectedPlayer[statMode] &&
       selectedPlayer[statMode][key] !== undefined
     ) {
-      if (statMode == "attack" && key == "error" || key == "kill") {
-        selectedPlayer[statMode][key] = (selectedPlayer[statMode][key] as number) + 1;
+      if ((statMode == 'attack' && key == 'error') || key == 'kill') {
+        selectedPlayer[statMode][key] =
+          (selectedPlayer[statMode][key] as number) + 1;
         selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
       } else {
-        selectedPlayer[statMode][key] = (selectedPlayer[statMode][key] as number) + 1;
-      } 
+        selectedPlayer[statMode][key] =
+          (selectedPlayer[statMode][key] as number) + 1;
+      }
     }
 
     // Create a copy of the players array to avoid direct mutation
@@ -65,21 +69,16 @@ const AddStats = ({
 
     // Now, update the store with the modified players array
     updatePlayer(updatedPlayers);
-
-    // go back to the gametable
-    handleBack();
+    onBack();
   };
 
   return (
-    <div className={statMode ? "section addstats" : "section d-none addstats"}>
+    <div className={statMode ? 'section addstats' : 'section d-none addstats'}>
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">
             <th className="simpletable__title__field">
-              <a
-                className="addstats__title__field--back"
-                onClick={() => handleBack()}
-              >
+              <a className="addstats__title__field--back" onClick={onBack}>
                 <svg
                   width="23"
                   height="12"

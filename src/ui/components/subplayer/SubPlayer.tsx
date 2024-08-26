@@ -9,7 +9,13 @@ interface Player {
   active: boolean;
 }
 
-const SubPlayer = ({ player }: { player: Player }) => {
+const SubPlayer = ({
+  player,
+  onBack,
+}: {
+  player: Player;
+  onBack: () => void;
+}) => {
   const { players } = usePlayers();
   const storePlayers = useStore(
     (state: PlayerStore) => state.players as unknown as Player[]
@@ -52,12 +58,7 @@ const SubPlayer = ({ player }: { player: Player }) => {
     updatePlayer(finalPlayers);
 
     // Optionally, handle UI changes (such as navigating back)
-    handleBack();
-  };
-
-  const handleBack = () => {
-    document.querySelector('.gametable')?.classList.remove('d-none');
-    document.querySelector('.subplayer')?.classList.add('d-none');
+    onBack();
   };
 
   return (
@@ -66,7 +67,7 @@ const SubPlayer = ({ player }: { player: Player }) => {
         <tbody>
           <tr className="simpletable__title">
             <th className="subplayer__title__field simpletable__title__field">
-              <a className="addstats__title__field--back" onClick={handleBack}>
+              <a className="addstats__title__field--back" onClick={onBack}>
                 <svg
                   width="23"
                   height="12"

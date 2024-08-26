@@ -6,6 +6,7 @@ const GameReplay = () => {
   const queryParameters = new URLSearchParams(window.location.search);
   const gameid = queryParameters.get('gameid') ?? '';
   const game = useGame(gameid);
+  const gameTitle = `${game?.gameData?.homeTeam} vs. ${game?.gameData?.guestTeam}`;
   const allPlayers = game?.playersData;
   // convert date to readable format
   const date = new Date(game?.gameData?.date.toDate())
@@ -17,13 +18,7 @@ const GameReplay = () => {
 
   return (
     <>
-      {game ? (
-        <div className="section">
-          <a className="itemlist__link--error" href="/">
-            No games found, please select a valid game
-          </a>
-        </div>
-      ) : (
+      {gameTitle ? (
         <div>
           <div className="section">
             <div className="title">
@@ -45,7 +40,7 @@ const GameReplay = () => {
                   </a>
                 </div>
 
-                <h3>{`${game?.gameData?.homeTeam} vs. ${game?.gameData?.guestTeam}`}</h3>
+                <h3>{gameTitle}</h3>
               </div>
               <p className="title__subtitle">
                 <a
@@ -173,6 +168,12 @@ const GameReplay = () => {
               </tbody>
             </table>
           </div>
+        </div>
+      ) : (
+        <div className="section">
+          <a className="itemlist__link--error" href="/">
+            No games found, please select a valid game
+          </a>
         </div>
       )}
     </>
