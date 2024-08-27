@@ -1,17 +1,44 @@
 import { useGame } from "../../../hooks/useGame";
 import { useSeason } from "../../../hooks/useSeason";
+import { useAuth } from "../../../auth/authContext";
+import { doSignOut } from "../../../auth/auth";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const seasonData = useSeason("Season-24-25");
+  const { currentUser } = useAuth() || {
+    currentUser: null,
+    userLoggedIn: false,
+    loading: false,
+  };
 
   const seasonGamesData = useGame(
     seasonData?.gameData[seasonData.gameData.length - 1]?.gameId?.toString()
   );
 
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="home section">
-        <h1>🏐 HU23 - VBC Limmattal</h1>
+        <div className="home__header">
+          <h5 className="home__header__user">
+            {currentUser ? `Welcome ${currentUser.email}` : null}
+            <button
+              onClick={() => {
+                doSignOut().then(() => {
+                  navigate("/login");
+                });
+              }}
+              className="home__header__user--logout"
+            >
+              Logout
+            </button>
+          </h5>
+          <h3 className="home__header__title">
+            HU23 - VBC Limmattal - Statistics
+          </h3>
+        </div>
         <h4>Create</h4>
         <div className="home__link__wrapper">
           <a className="home__link" href="/wizard">
