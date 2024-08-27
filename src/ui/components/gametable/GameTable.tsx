@@ -1,41 +1,54 @@
-import { useEffect, useState } from 'react';
-import { useGame } from '../../../hooks/useGame';
-import useStore, { PlayerStore } from '../../../stores/StatsStore';
-import {
-  loadStore,
-  saveStore,
-} from '../../../services/store/StatsStoreService';
-import SubPlayer from '../subplayer/SubPlayer';
-import AddStats from '../addstats/AddStats';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import db from '../../../firebase';
-import { updateGlobalPlayerStats } from '../../../services/upload/updateGlobalPlayerStats';
+import { useEffect, useState } from "react";
+import { Player, useGame } from "../../../hooks/useGame";
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
+import { saveStore } from "../../../services/store/StatsStoreService";
+import SubPlayer from "../subplayer/SubPlayer";
+import AddStats from "../addstats/AddStats";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import db from "../../../firebase";
+import { updateGlobalPlayerStats } from "../../../services/upload/updateGlobalPlayerStats";
+import useAutoSave from "../../../hooks/useAutoSave";
+import { PlayerWithStats } from "../../../services/Wizard/createGame";
 
 const GameTable = () => {
   const queryParameters = new URLSearchParams(window.location.search);
-  const gameid = queryParameters.get('gameid') ?? '';
+  const gameid = queryParameters.get("gameid") ?? "";
   const game = useGame(gameid);
   const gameTitle = game.gameData
     ? `${game.gameData.homeTeam} vs. ${game.gameData.guestTeam}`
-    : '';
+    : "";
 
   const players = useStore(
     (state: PlayerStore) => state.players as unknown as Player[]
   );
 
+  useAutoSave("playerData", JSON.stringify(players));
   const updatePlayer = useStore((state: PlayerStore) => state.updatePlayers);
 
-  useEffect(() => {
-    async function handle() {
-      updatePlayer(await loadStore(gameid));
-    }
+  const saveStoreToDb = (data: PlayerWithStats[]) => {
+    saveStore(gameid, data);
+    document
+      .querySelector(".savedWrapper")
+      ?.classList.add("savedWrapper__show");
+    setTimeout(() => {
+      document
+        .querySelector(".savedWrapper")
+        ?.classList.remove("savedWrapper__show");
+    }, 2300);
+  };
 
-    handle();
+  // detect if there was a reload of the page
+  useEffect(() => {
+    if (performance.navigation.type === 1) {
+      // Page reloaded
+      const data = JSON.parse(localStorage.getItem("playerData") as string);
+      updatePlayer(data);
+    }
   }, []);
 
   const [activeView, setActiveView] = useState<
-    'gameTable' | 'addStats' | 'subPlayer'
-  >('gameTable');
+    "gameTable" | "addStats" | "subPlayer"
+  >("gameTable");
 
   const [playerData, setPlayerData] = useState<null | unknown>(null);
   const [statMode, setStatMode] = useState<string | null>(null);
@@ -51,11 +64,11 @@ const GameTable = () => {
   }
 
   const handleBackFromAddStats = () => {
-    setActiveView('gameTable');
+    setActiveView("gameTable");
   };
 
   const handleBackFromSubPlayer = () => {
-    setActiveView('gameTable');
+    setActiveView("gameTable");
   };
 
   const handleStatClick = (
@@ -68,14 +81,14 @@ const GameTable = () => {
     setStatModeFields(statModeFields);
     setShowAddStats(true);
     setShowSubPlayer(false);
-    setActiveView('addStats');
+    setActiveView("addStats");
   };
 
   const handleSubPlayerClick = (player: unknown) => {
     setPlayerData(player);
     setShowSubPlayer(true);
     setShowAddStats(false);
-    setActiveView('subPlayer');
+    setActiveView("subPlayer");
   };
 
   useEffect(() => {
@@ -83,56 +96,44 @@ const GameTable = () => {
       event.preventDefault();
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-
-  const saveStoreToDb = () => {
-    saveStore(gameid, players);
-    document
-      .querySelector('.savedWrapper')
-      ?.classList.add('savedWrapper__show');
-    setTimeout(() => {
-      document
-        .querySelector('.savedWrapper')
-        ?.classList.remove('savedWrapper__show');
-    }, 2300);
-  };
 
   const finishGame = async () => {
     saveStore(gameid, players);
 
     try {
-      const gameRef = doc(db, 'Games', gameid);
+      const gameRef = doc(db, "Games", gameid);
       const gameDoc = await getDoc(gameRef);
 
       if (gameDoc.exists()) {
         await updateDoc(gameRef, {
           gameFinished: true,
         });
-        console.log('Game finished successfully');
+        console.log("Game finished successfully");
       } else {
-        console.log('No such game found');
+        console.log("No such game found");
       }
     } catch (error) {
-      console.error('Error finishing the game:', error);
+      console.error("Error finishing the game:", error);
     }
     await updateGlobalPlayerStats(players);
     window.location.href = `/game-replay?gameid=${gameid}`;
   };
 
   const handleGameTimeoutClick = async () => {
-    await saveStoreToDb();
+    await saveStoreToDb(players);
     window.location.href = `/game-timeout?gameid=${gameid}`;
   };
 
   return (
     <>
       <div className="section">
-        {activeView === 'gameTable' ? (
+        {activeView === "gameTable" ? (
           <div>
             {gameTitle ? (
               <div>
@@ -149,23 +150,23 @@ const GameTable = () => {
                     </div>
                     <div
                       className="gametable__menu__actions--save c-pointer"
-                      onClick={() => saveStoreToDb()}
+                      onClick={() => saveStoreToDb(players)}
                     >
                       <div className="savedWrapper">
-                        {' '}
+                        {" "}
                         <svg
                           className="checkmark"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 52 52"
                         >
-                          {' '}
+                          {" "}
                           <circle
                             className="checkmark__circle"
                             cx="26"
                             cy="26"
                             r="25"
                             fill="none"
-                          />{' '}
+                          />{" "}
                           <path
                             className="checkmark__check"
                             fill="none"
@@ -211,13 +212,13 @@ const GameTable = () => {
                             key={player.id?.toString()}
                           >
                             <td className="gametable__row__field--player simpletable__row__field">
-                              <span>{player.Name}</span>{' '}
+                              <span>{player.Name}</span>{" "}
                               <span>#{player.Number}</span>
                             </td>
                             <td
                               className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                               onClick={() =>
-                                handleStatClick(player, 'attack', player.attack)
+                                handleStatClick(player, "attack", player.attack)
                               }
                             >
                               A
@@ -225,7 +226,7 @@ const GameTable = () => {
                             <td
                               className="gametable__row__field simpletable__row__field c-pointer text-select-none"
                               onClick={() =>
-                                handleStatClick(player, 'block', player.block)
+                                handleStatClick(player, "block", player.block)
                               }
                             >
                               B
@@ -235,7 +236,7 @@ const GameTable = () => {
                               onClick={() =>
                                 handleStatClick(
                                   player,
-                                  'service',
+                                  "service",
                                   player.service
                                 )
                               }
@@ -247,7 +248,7 @@ const GameTable = () => {
                               onClick={() =>
                                 handleStatClick(
                                   player,
-                                  'receive',
+                                  "receive",
                                   player.receive
                                 )
                               }
@@ -285,16 +286,16 @@ const GameTable = () => {
           </div>
         ) : null}
       </div>
-      {activeView === 'addStats' && (
+      {activeView === "addStats" && (
         <AddStats
           player={playerData}
-          statMode={statMode ?? ''}
+          statMode={statMode ?? ""}
           statModeFields={statModeFields}
           gameid={gameid}
           onBack={handleBackFromAddStats}
         />
       )}
-      {activeView === 'subPlayer' && (
+      {activeView === "subPlayer" && (
         <SubPlayer player={playerData} onBack={handleBackFromSubPlayer} />
       )}
     </>
