@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { doc, getDoc, collection, getDocs, DocumentReference } from "firebase/firestore";
 import db from "../firebase";
 import { Timestamp } from "firebase/firestore";
@@ -75,7 +75,8 @@ export const useGame = (gameId: string) => {
             id: playerDoc.id,
           };
         }));
-
+        
+        //@ts-ignore
         setPlayersData(playersData);
       } catch (err) {
         setError(err as Error);

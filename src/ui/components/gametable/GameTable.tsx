@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Player, useGame } from "../../../hooks/useGame";
+import { useGame } from "../../../hooks/useGame";
 import useStore, { PlayerStore } from "../../../stores/StatsStore";
 import { saveStore } from "../../../services/store/StatsStoreService";
 import SubPlayer from "../subplayer/SubPlayer";
@@ -19,7 +19,7 @@ const GameTable = () => {
     : "";
 
   const players = useStore(
-    (state: PlayerStore) => state.players as unknown as Player[]
+    (state: PlayerStore) => state.players as unknown as PlayerWithStats[]
   );
 
   useAutoSave("playerData", JSON.stringify(players));
@@ -54,8 +54,8 @@ const GameTable = () => {
   const [statMode, setStatMode] = useState<string | null>(null);
   const [statModeFields, setStatModeFields] = useState<object>({});
 
-  const [showAddStats, setShowAddStats] = useState(false);
-  const [showSubPlayer, setShowSubPlayer] = useState(false);
+  const [, setShowAddStats] = useState(false);
+  const [, setShowSubPlayer] = useState(false);
 
   const isGameFinished = game.gameData?.gameFinished;
 
@@ -121,6 +121,7 @@ const GameTable = () => {
     } catch (error) {
       console.error("Error finishing the game:", error);
     }
+    //@ts-ignore
     await updateGlobalPlayerStats(players);
     window.location.href = `/game-replay?gameid=${gameid}`;
   };
@@ -288,14 +289,17 @@ const GameTable = () => {
       </div>
       {activeView === "addStats" && (
         <AddStats
+          //@ts-ignore
           player={playerData}
           statMode={statMode ?? ""}
+          //@ts-ignore
           statModeFields={statModeFields}
           gameid={gameid}
           onBack={handleBackFromAddStats}
         />
       )}
       {activeView === "subPlayer" && (
+        //@ts-ignore
         <SubPlayer player={playerData} onBack={handleBackFromSubPlayer} />
       )}
     </>

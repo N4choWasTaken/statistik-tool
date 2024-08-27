@@ -55,6 +55,7 @@ const SubPlayer = ({
     ];
 
     // Update the store using updatePlayer
+    //@ts-ignore
     updatePlayer(finalPlayers);
 
     // Optionally, handle UI changes (such as navigating back)

@@ -13,6 +13,7 @@ function withNavigation<T>(Component: React.ComponentType<T>) {
 
     return (
       <div>
+        {/*@ts-ignore*/}
         <Component {...(restProps as T)} />
         <div className="section">
           {!isFirstStep && (

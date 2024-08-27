@@ -12,7 +12,7 @@ const item = [
 export default function SaisonOverview() {
   return (
     <>
-      <Title titleName="Übersicht Saisons" back={true} />
+      <Title titleName="Übersicht Saisons" back={true} subtitle={""} />
       <ItemList items={item} />
     </>
   );

@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, setDoc } from "firebase/firestore";
 import db from "../../firebase";
 import { PlayerWithStats } from "../Wizard/createGame";
 

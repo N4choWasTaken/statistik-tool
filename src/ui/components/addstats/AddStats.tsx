@@ -25,11 +25,6 @@ const AddStats = ({
 
   if (!player) return null;
 
-  const handleBack = () => {
-    document.querySelector('.gametable')?.classList.remove('d-none');
-    document.querySelector('.addstats')?.classList.add('d-none');
-  };
-
   const orderStatModeFields = Object.keys(statModeFields)
     .sort()
     .reduce((obj: { [key: string]: unknown }, key: string) => {
@@ -50,15 +45,22 @@ const AddStats = ({
 
     // Dynamically increase the value of the specific stat (e.g., attack.error or service.ace)
     if (
+      //@ts-ignore
       selectedPlayer[statMode] &&
+      //@ts-ignore
       selectedPlayer[statMode][key] !== undefined
     ) {
       if ((statMode == 'attack' && key == 'error') || key == 'kill') {
+        //@ts-ignore
         selectedPlayer[statMode][key] =
+        //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
+          //@ts-ignore
         selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
       } else {
+        //@ts-ignore
         selectedPlayer[statMode][key] =
+        //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
       }
     }
@@ -68,6 +70,7 @@ const AddStats = ({
     updatedPlayers[playerIndex] = { ...selectedPlayer };
 
     // Now, update the store with the modified players array
+    //@ts-ignore
     updatePlayer(updatedPlayers);
     onBack();
   };

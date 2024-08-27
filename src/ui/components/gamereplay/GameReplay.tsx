@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import { useGame } from '../../../hooks/useGame';
-import Title from '../title/Title';
 
 const GameReplay = () => {
   const queryParameters = new URLSearchParams(window.location.search);

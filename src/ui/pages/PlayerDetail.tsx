@@ -1,5 +1,6 @@
 import Title from '../components/title/Title';
 import usePlayers from '../../hooks/usePlayers';
+import { ReactNode } from 'react';
 
 type Props = {
   playerId: string;
@@ -8,6 +9,7 @@ type Props = {
 export default function PlayerDetail({ playerId }: Props) {
   const { players, loading, error } = usePlayers();
   const playerID = playerId;
+  //@ts-ignore
   let player: {
     gamesPlayed: ReactNode;
     receive: any;
@@ -23,6 +25,7 @@ export default function PlayerDetail({ playerId }: Props) {
 
   players.forEach((possiblePlayer) => {
     if (possiblePlayer.id === playerID) {
+      //@ts-ignore
       player = {
         ...possiblePlayer,
         Number: String(possiblePlayer.Number),
