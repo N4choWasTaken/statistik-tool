@@ -22,6 +22,15 @@ jobs:
         npm install
         npm run build
 
+    - name: Clear target directory on server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_IP }}
+        username: ${{ secrets.SERVER_USER }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        script: |
+          rm -rf /var/www/html/vbclimmattal/statistic/*
+
     - name: Deploy to Server
       uses: appleboy/scp-action@master
       with:
