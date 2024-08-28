@@ -40,12 +40,26 @@ const App: React.FC = () => {
     href: `/player/${player.id}`,
   }));
 
+  if (!userData && !players)
+    return (
+      <div className="loader__wrapper">
+        <div className="loader">🏐</div>
+      </div>
+    );
+
   return (
     <Router>
       <Routes>
-        {userLoggedIn && userData.role != "unverified" ? (
+        {userLoggedIn && userData.role !== "unverified" ? (
           <>
-            <Route path="*" element={<Navigate to="/" replace={true} />} />
+            {/* wait until this array is done loading */}
+            {allPlayerRoutes.map((player) => (
+              <Route
+                key={player.key}
+                path={player.href}
+                element={<PlayerDetail playerId={player.key} />}
+              />
+            ))}
             <Route path="/" element={<Landing />} />
             <Route path="/game-active" element={<GameActive />} />
             <Route path="/game-replay" element={<GameReplay />} />
@@ -58,29 +72,17 @@ const App: React.FC = () => {
               path="/season-detail/Season-24-25"
               element={<SaisonDetail />}
             />
-            {allPlayerRoutes.map((player) => (
-              <Route
-                key={player.key}
-                path={player.href}
-                element={<PlayerDetail playerId={player.key} />}
-              />
-            ))}
+          </>
+        ) : userLoggedIn && userData.role === "unverified" ? (
+          <>
+            <Route path="/" element={<Unverified />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </>
         ) : (
           <>
-            {userData.role === "unverified" ? (
-              <>
-                <Route path="/" element={<Unverified />} />
-                <Route path="/profile" element={<ProfilePage />} />
-              </>
-            ) : (
-              <>
-                <Route path="/" element={<Login />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="*" element={<Navigate to="/" replace={true} />} />
-              </>
-            )}
+            <Route path="/" element={<Login />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="/register" element={<Register />} />
           </>
         )}
       </Routes>
