@@ -5,15 +5,19 @@ import {
   sendPasswordResetEmail,
   signOut,
 } from "firebase/auth";
+import { setUserRole } from "../services/upload/registerUser";
 
 // Create a new user with email and password
 export const doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    await setUserRole(user.uid, "unverified", email, email);
+    
     return userCredential;
   } catch (error) {
     console.error("Error creating user:", error);
-    throw error; // Re-throw the error to be handled by the calling function
+    return error;
   }
 }
 

@@ -19,14 +19,19 @@ import GameTimeout from "./ui/components/gametimeout/GameTimeout";
 import Register from "./ui/components/auth/register/Register";
 import Login from "./ui/components/auth/login/Login";
 import { useAuth } from "./auth/authContext";
+import { useGetUserData } from "./hooks/useGetUserData";
+import Unverified from "./ui/pages/Unverified";
 
 const App: React.FC = () => {
   const { players } = usePlayers();
-  const { userLoggedIn, loading } = useAuth() || {
+  const { userLoggedIn, currentUser } = useAuth() || {
     currentUser: null,
     userLoggedIn: false,
     loading: false,
   };
+
+  //@ts-ignore
+  const userData = useGetUserData(currentUser?.uid ?? "");
 
   const allPlayerRoutes = players.map((player) => ({
     key: String(player.id),
@@ -34,15 +39,10 @@ const App: React.FC = () => {
     href: `/player/${player.id}`,
   }));
 
-  if (loading) {
-    // Show a loading indicator while checking auth state
-    return <div>Loading...</div>;
-  }
-
   return (
     <Router>
       <Routes>
-        {userLoggedIn ? (
+        {userLoggedIn && userData.role != "unverified" ? (
           <>
             <Route path="*" element={<Navigate to="/" replace={true} />} />
             <Route path="/" element={<Landing />} />
@@ -67,9 +67,15 @@ const App: React.FC = () => {
           </>
         ) : (
           <>
-            <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="*" element={<Navigate to="/" replace={true} />} />
+            {userData.role === "unverified" ? (
+              <Route path="/" element={<Unverified />} />
+            ) : (
+              <>
+                <Route path="/" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="*" element={<Navigate to="/" replace={true} />} />
+              </>
+            )}
           </>
         )}
       </Routes>

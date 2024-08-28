@@ -23,7 +23,10 @@ const Home = () => {
       <div className="home section">
         <div className="home__header">
           <h5 className="home__header__user">
-            {currentUser ? `Welcome ${currentUser.email}` : null}
+            <div className="home__header__user__profile">
+              <div className="home__header__user__profile--img"></div>
+              {currentUser ? `${currentUser.email}` : null}
+            </div>
             <button
               onClick={() => {
                 doSignOut().then(() => {
