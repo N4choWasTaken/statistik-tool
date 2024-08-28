@@ -83,7 +83,6 @@ export const updateGlobalPlayerStats = async (
       })
     );
 
-    console.log('All player data successfully updated!');
   } catch (error) {
     console.error('Error updating player data: ', error);
     throw error;

@@ -27,7 +27,6 @@ export async function saveStore(gameId: string, updatedPlayers: PlayerWithStats[
 
         // Wait for all update operations to complete
         await Promise.all(updatePromises);
-        console.log("All players updated successfully.");
     } catch (error) {
         console.error("Error updating players: ", error);
     }

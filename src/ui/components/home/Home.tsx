@@ -1,12 +1,23 @@
 import { useGame } from "../../../hooks/useGame";
 import { useSeason } from "../../../hooks/useSeason";
 import Header from "../header/Header";
+import { useGetUserData } from "../../../hooks/useGetUserData";
+import { useAuth } from "../../../auth/authContext";
 
 const Home = () => {
   const seasonData = useSeason("Season-24-25");
   const seasonGamesData = useGame(
     seasonData?.gameData[seasonData.gameData.length - 1]?.gameId?.toString()
   );
+
+  const { currentUser } = useAuth() || {
+    currentUser: null,
+    userLoggedIn: false,
+    loading: false,
+  };
+
+  //@ts-ignore
+  const userData = useGetUserData(currentUser?.uid ?? "");
 
   return (
     <>
@@ -17,27 +28,31 @@ const Home = () => {
             HU23 - VBC Limmattal - Statistics
           </h3>
         </div>
-        <h4>Create</h4>
-        <div className="home__link__wrapper">
-          <a className="home__link" href="/wizard">
-            <svg
-              style={{ marginRight: "10px" }}
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="home__link__creategameIcon"
-            >
-              <path
-                d="M16.9991 12.6343H6.93804M11.9301 7.79586V17.4727M17 9.5V3C17 1.5 16.0001 1 14.5 1H3.50003C1.99999 1 1.00003 2 1.00003 3V14.5C1.00003 16 1.99999 17 3.50003 17H8.00003"
-                stroke="black"
-                strokeWidth="1.44"
-              />
-            </svg>
-            New Game
-          </a>
-        </div>
+        {userData.role === "admin" && (
+          <>
+            <h4>Create</h4>
+            <div className="home__link__wrapper">
+              <a className="home__link" href="/wizard">
+                <svg
+                  style={{ marginRight: "10px" }}
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="home__link__creategameIcon"
+                >
+                  <path
+                    d="M16.9991 12.6343H6.93804M11.9301 7.79586V17.4727M17 9.5V3C17 1.5 16.0001 1 14.5 1H3.50003C1.99999 1 1.00003 2 1.00003 3V14.5C1.00003 16 1.99999 17 3.50003 17H8.00003"
+                    stroke="black"
+                    strokeWidth="1.44"
+                  />
+                </svg>
+                New Game
+              </a>
+            </div>
+          </>
+        )}
         <h4>Overviews</h4>
         <div className="home__link__wrapper">
           <a className="home__link" href="/overview-season">

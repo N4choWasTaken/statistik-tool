@@ -7,7 +7,6 @@ export const setUserRole = async (userUid: string, role: string, email: string, 
     await setDoc(doc(db, "Users", userUid), {
       role, email, displayName
     });
-    console.log("User role set successfully.");
   } catch (error) {
     console.error("Error setting user role:", error);
   }

@@ -114,9 +114,8 @@ const GameTable = () => {
         await updateDoc(gameRef, {
           gameFinished: true,
         });
-        console.log("Game finished successfully");
       } else {
-        console.log("No such game found");
+        console.error("No such game found");
       }
     } catch (error) {
       console.error("Error finishing the game:", error);

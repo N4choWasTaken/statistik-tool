@@ -1,6 +1,6 @@
-import Title from '../components/title/Title';
-import usePlayers from '../../hooks/usePlayers';
-import { ReactNode } from 'react';
+import Title from "../components/title/Title";
+import usePlayers from "../../hooks/usePlayers";
+import { ReactNode } from "react";
 
 type Props = {
   playerId: string;
@@ -19,8 +19,8 @@ export default function PlayerDetail({ playerId }: Props) {
     Number: string;
     Name: string;
   } = {
-    Name: '',
-    Number: '',
+    Name: "",
+    Number: "",
   };
 
   players.forEach((possiblePlayer) => {
@@ -40,8 +40,6 @@ export default function PlayerDetail({ playerId }: Props) {
       </div>
     );
   if (error) return <div>Error: {error.message}</div>;
-
-  console.log(player);
 
   return (
     <>

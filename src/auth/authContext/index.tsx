@@ -27,11 +27,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (user) {
         setCurrentUser(user);
         setUserLoggedIn(true);
-        console.log("User is logged in:", user);
       } else {
         setCurrentUser(null);
         setUserLoggedIn(false);
-        console.log("No user logged in");
       }
       setLoading(false);
     });
