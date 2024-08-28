@@ -50,7 +50,7 @@ const Profile = () => {
         <button
           onClick={() => {
             doSignOut().then(() => {
-              navigate("/login");
+              navigate("/");
             });
           }}
           className="profile__user--logout"

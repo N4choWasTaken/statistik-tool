@@ -20,21 +20,46 @@ const Register = () => {
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (confirmPassword !== password) {
+      setErrorMessage("Your passwords do not match.");
+      return;
+    } else if (userName.length < 3) {
+      setErrorMessage("Your username should be at least 3 characters long.");
+      return;
+    } else if (userName.length > 20) {
+      setErrorMessage("Your username should be at most 20 characters long.");
+      return;
+    }
     if (!isRegistering) {
       setIsRegistering(true);
       try {
         await doCreateUserWithEmailAndPassword(userName, email, password);
-        // Redirect to login page
-        window.location.href = "/";
       } catch (error) {
-        setErrorMessage(error as string);
+        if (error instanceof Error) {
+          setErrorMessage(error.message);
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
+      } finally {
+        setIsRegistering(false);
       }
-      setIsRegistering(false);
     }
   };
 
   return (
     <>
+      {errorMessage && (
+        <div className="section">
+          <a className="itemlist__link--error" href="/">
+            {errorMessage === "Firebase: Error (auth/email-already-in-use)."
+              ? "This e-mail is already in use. Please try another e-mail or reset your password."
+              : errorMessage ===
+                "Firebase: Password should be at least 6 characters (auth/weak-password)."
+              ? "Your password should be at least 6 characters long."
+              : errorMessage}
+          </a>
+        </div>
+      )}
       {userLoggedIn && <Navigate to={"/"} replace={true} />}
       <main className="login section">
         <div>
@@ -118,8 +143,6 @@ const Register = () => {
                 </label>
               </div>
             </div>
-
-            {errorMessage && <span>{errorMessage}</span>}
 
             <button
               type="submit"

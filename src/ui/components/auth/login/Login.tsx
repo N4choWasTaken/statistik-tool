@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import { doSignInWithEmailAndPassword } from "../../../../auth/auth";
+import {
+  doSignInWithEmailAndPassword,
+  doSignOut,
+  sendResetPasswordEmail,
+} from "../../../../auth/auth";
 import { useAuth } from "../../../../auth/authContext/index";
 
 const Login = () => {
   const queryParameters = new URLSearchParams(window.location.search);
   const resetPassword = queryParameters.get("reset") ?? "";
-  const { userLoggedIn } = useAuth() || {
+  const { userLoggedIn, currentUser } = useAuth() || {
     currentUser: null,
     userLoggedIn: false,
     loading: false,
@@ -42,6 +46,16 @@ const Login = () => {
           <a className="itemlist__link--notice" href="/">
             An email has been sent to reset your password. Please check your
             inbox.
+          </a>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="section">
+          <a className="itemlist__link--error" href="/">
+            {errorMessage === "Firebase: Error (auth/invalid-credential)."
+              ? "Your e-mail or password is incorrect. Please try again."
+              : errorMessage}
           </a>
         </div>
       )}
@@ -97,12 +111,20 @@ const Login = () => {
             </div>
 
             <p className="login__resetpassword">
-              Forgot your password? <Link to={"/register"}>Reset password</Link>
+              Forgot your password?{" "}
+              <a
+                className="c-pointer"
+                onClick={() => {
+                  sendResetPasswordEmail(currentUser?.email ?? "").then(() => {
+                    doSignOut().then(() => {
+                      window.location.href = "/?reset=true";
+                    });
+                  });
+                }}
+              >
+                Reset password
+              </a>
             </p>
-
-            {errorMessage && (
-              <span className="text-red-600">{errorMessage}</span>
-            )}
 
             <button
               className={
