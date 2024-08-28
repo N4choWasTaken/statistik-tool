@@ -4,6 +4,8 @@ import { doSignInWithEmailAndPassword } from "../../../../auth/auth";
 import { useAuth } from "../../../../auth/authContext/index";
 
 const Login = () => {
+  const queryParameters = new URLSearchParams(window.location.search);
+  const resetPassword = queryParameters.get("reset") ?? "";
   const { userLoggedIn } = useAuth() || {
     currentUser: null,
     userLoggedIn: false,
@@ -35,6 +37,15 @@ const Login = () => {
 
   return (
     <div>
+      {resetPassword && (
+        <div className="section">
+          <a className="itemlist__link--notice" href="/">
+            An email has been sent to reset your password. Please check your
+            inbox.
+          </a>
+        </div>
+      )}
+
       {userLoggedIn && <Navigate to={"/"} replace={true} />}
 
       <main className="login section">

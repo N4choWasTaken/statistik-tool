@@ -1,5 +1,5 @@
 import { useAuth } from "../../../auth/authContext";
-import { doSignOut } from "../../../auth/auth";
+import { doSignOut, sendResetPasswordEmail } from "../../../auth/auth";
 import { useNavigate } from "react-router-dom";
 import Title from "../title/Title";
 import { useGetUserData } from "../../../hooks/useGetUserData";
@@ -37,8 +37,10 @@ const Profile = () => {
 
         <button
           onClick={() => {
-            doSignOut().then(() => {
-              navigate("/reset-password");
+            sendResetPasswordEmail(currentUser?.email ?? "").then(() => {
+              doSignOut().then(() => {
+                navigate("/?reset=true");
+              });
             });
           }}
           className="profile__user--reset"
