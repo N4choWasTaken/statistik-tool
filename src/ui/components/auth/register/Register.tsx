@@ -5,6 +5,7 @@ import { useAuth } from "../../../../auth/authContext";
 import { doCreateUserWithEmailAndPassword } from "../../../../auth/auth";
 
 const Register = () => {
+  const [userName, setuserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,7 +23,7 @@ const Register = () => {
     if (!isRegistering) {
       setIsRegistering(true);
       try {
-        await doCreateUserWithEmailAndPassword(email, password);
+        await doCreateUserWithEmailAndPassword(userName, email, password);
         // Redirect to login page
         window.location.href = "/";
       } catch (error) {
@@ -45,6 +46,21 @@ const Register = () => {
           </div>
           <form onSubmit={onSubmit}>
             <div className="login__input__wrapper">
+              <div className="login__input__field">
+                <input
+                  className="login__input"
+                  id="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  placeholder=" "
+                  value={userName}
+                  onChange={(e) => setuserName(e.target.value)}
+                />
+                <label className="login__label text-select-none" htmlFor="name">
+                  Username
+                </label>
+              </div>
               <div className="login__input__field">
                 <input
                   className="login__input"

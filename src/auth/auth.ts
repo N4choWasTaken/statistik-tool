@@ -8,11 +8,11 @@ import {
 import { setUserRole } from "../services/upload/registerUser";
 
 // Create a new user with email and password
-export const doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
+export const doCreateUserWithEmailAndPassword = async (userName:string, email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
-    await setUserRole(user.uid, "unverified", email, email);
+    await setUserRole(user.uid, "unverified", email, userName);
     
     return userCredential;
   } catch (error) {
