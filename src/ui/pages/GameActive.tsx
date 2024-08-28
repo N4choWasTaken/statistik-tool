@@ -15,7 +15,7 @@ export default function Table() {
 
   return (
     <>
-      {userData.role == "admin" ? (
+      {userData.role === "admin" || userData.role === "moderator" ? (
         <GameTable />
       ) : (
         <>
