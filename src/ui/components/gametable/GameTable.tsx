@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useGame } from "../../../hooks/useGame";
 import useStore, { PlayerStore } from "../../../stores/StatsStore";
-import { saveStore } from "../../../services/store/StatsStoreService";
+import {
+  loadStore,
+  saveStore,
+} from "../../../services/store/StatsStoreService";
 import SubPlayer from "../subplayer/SubPlayer";
 import AddStats from "../addstats/AddStats";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../../firebase";
 import { updateGlobalPlayerStats } from "../../../services/upload/updateGlobalPlayerStats";
-import useAutoSave from "../../../hooks/useAutoSave";
 import { PlayerWithStats } from "../../../services/Wizard/createGame";
+import useAutoSave from "../../../hooks/useAutoSave";
 
 const GameTable = () => {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -19,11 +22,19 @@ const GameTable = () => {
     : "";
 
   const players = useStore(
-    (state: PlayerStore) => state.players as unknown as PlayerWithStats[]
+    //@ts-ignore
+    (state: PlayerStore) => state.players as unknown as Player[]
   );
 
-  useAutoSave("playerData", JSON.stringify(players));
   const updatePlayer = useStore((state: PlayerStore) => state.updatePlayers);
+
+  useEffect(() => {
+    async function handle() {
+      updatePlayer(await loadStore(gameid));
+    }
+
+    handle();
+  }, []);
 
   const saveStoreToDb = (data: PlayerWithStats[]) => {
     saveStore(gameid, data);
@@ -42,9 +53,11 @@ const GameTable = () => {
     if (performance.navigation.type === 1) {
       // Page reloaded
       const data = JSON.parse(localStorage.getItem("playerData") as string);
-      updatePlayer(data);
+      saveStoreToDb(data);
     }
   }, []);
+
+  useAutoSave("playerData", JSON.stringify(players));
 
   const [activeView, setActiveView] = useState<
     "gameTable" | "addStats" | "subPlayer"

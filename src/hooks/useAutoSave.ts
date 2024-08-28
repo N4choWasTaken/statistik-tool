@@ -16,7 +16,7 @@ export default function useAutoSave(storageId: string, data: string, delay = 100
             return;
         }
         const timeoutId = setTimeout(() => {
-            localStorage.setItem(storageId, data);
+            localStorage.setItem(storageId, data);            
         }, delay);
 
         return () => {
