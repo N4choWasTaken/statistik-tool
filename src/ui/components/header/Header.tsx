@@ -23,7 +23,7 @@ const Header = () => {
               }}
             >
               <div className="header__header__user__profile--img">
-                <img src="/src/assets/default-pb.png" alt="profile" />
+                <img src="/default-pb.png" alt="profile" />
               </div>
               {userData && currentUser
                 ? `${userData?.displayName}`

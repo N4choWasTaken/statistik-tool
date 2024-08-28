@@ -22,7 +22,7 @@ const Profile = () => {
       <div className="profile section">
         <div className="profile__wrapper">
           <div className="profile__user__img">
-            <img src="/src/assets/default-pb.png" alt="profile" />
+            <img src="/default-pb.png" alt="profile" />
           </div>
           <h5 className="profile__user__displayname">
             Name: {userData ? `${userData.displayName}` : null}
