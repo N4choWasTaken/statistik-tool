@@ -31,20 +31,7 @@ jobs:
         npm install
         npm run build
 
-    - name: Clear target directory on server
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        script: |
-          rm -rf /var/www/html/vbclimmattal/statistic/*
-
-    - name: Deploy to Server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.SERVER_IP }}
-        username: ${{ secrets.SERVER_USER }}
-        password: ${{ secrets.SSH_PASSWORD }}
-        source: "dist/*"
-        target: "/var/www/html/vbclimmattal/statistic"
+    - name: Deploy to Vercel
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: npx vercel --prod --token $VERCEL_TOKEN --project ${{ secrets.VERCEL_PROJECT_ID }}
