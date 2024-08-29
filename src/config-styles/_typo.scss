@@ -56,6 +56,15 @@ p {
   font-family: $font-family;
 }
 
+li {
+  text-rendering: auto;
+  font-weight: 300;
+  font-size: $font-size-base;
+  line-height: 135%;
+  margin-top: 0;
+  font-family: $font-family;
+}
+
 a {
   text-decoration: none;
   color: $secondary;

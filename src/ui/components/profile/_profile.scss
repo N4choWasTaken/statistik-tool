@@ -67,4 +67,10 @@
             }
         }
     }
+
+    &__legal {
+        display: flex;
+        justify-content: center;
+        gap: 3.6rem;
+    }
 }

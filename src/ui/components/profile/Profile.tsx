@@ -1,6 +1,6 @@
 import { useAuth } from "../../../auth/authContext";
 import { doSignOut, sendResetPasswordEmail } from "../../../auth/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Title from "../title/Title";
 import { useGetUserData } from "../../../hooks/useGetUserData";
 
@@ -57,6 +57,24 @@ const Profile = () => {
         >
           Logout
         </button>
+        <div className="profile__legal">
+          <p className="login__signup">
+            <Link
+              to={"/data-privacy"}
+              className="text-center text-sm hover:underline font-bold"
+            >
+              Data Privacy
+            </Link>
+          </p>
+          <p className="login__signup">
+            <Link
+              to={"/imprint"}
+              className="text-center text-sm hover:underline font-bold"
+            >
+              Imprint
+            </Link>
+          </p>
+        </div>
       </div>
     </>
   );

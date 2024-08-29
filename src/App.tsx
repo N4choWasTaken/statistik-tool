@@ -16,6 +16,8 @@ import { useAuth } from "./auth/authContext";
 import { useGetUserData } from "./hooks/useGetUserData";
 import Unverified from "./ui/pages/Unverified";
 import ProfilePage from "./ui/pages/ProfilePage";
+import Imprint from "./ui/pages/Imprint";
+import DataPrivacy from "./ui/pages/DataPrivacy";
 
 const App: React.FC = () => {
   const { players } = usePlayers();
@@ -78,6 +80,8 @@ const App: React.FC = () => {
             <Route path="/register" element={<Register />} />
           </>
         )}
+        <Route path="/imprint" element={<Imprint />} />
+        <Route path="/data-privacy" element={<DataPrivacy />} />
       </Routes>
     </Router>
   );

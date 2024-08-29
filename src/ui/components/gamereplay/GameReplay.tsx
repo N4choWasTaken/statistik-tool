@@ -1,9 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { useGame } from '../../../hooks/useGame';
+import { useGame } from "../../../hooks/useGame";
 
 const GameReplay = () => {
   const queryParameters = new URLSearchParams(window.location.search);
-  const gameid = queryParameters.get('gameid') ?? '';
+  const gameid = queryParameters.get("gameid") ?? "";
   const game = useGame(gameid);
   const gameTitle = `${game?.gameData?.homeTeam} vs. ${game?.gameData?.guestTeam}`;
   const allPlayers = game?.playersData;
@@ -13,17 +12,15 @@ const GameReplay = () => {
     .toString()
     .slice(4, 16);
 
-  const navigate = useNavigate();
-
   return (
     <>
-      {gameTitle !== 'undefined vs. undefined' ? (
+      {gameTitle !== "undefined vs. undefined" ? (
         <div>
           <div className="section">
             <div className="title">
               <div className="title__title">
                 <div className="back c-pointer">
-                  <a onClick={() => navigate(-1)}>
+                  <a href="/overview-season">
                     <svg
                       width="23"
                       height="12"
@@ -57,7 +54,7 @@ const GameReplay = () => {
                   >
                     <g>
                       <path
-                        style={{ fill: '#014228' }}
+                        style={{ fill: "#014228" }}
                         d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
 		c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137
 		C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607
