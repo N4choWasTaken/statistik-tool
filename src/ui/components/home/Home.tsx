@@ -1,6 +1,5 @@
 import { useGame } from "../../../hooks/useGame";
 import { useSeason } from "../../../hooks/useSeason";
-import Header from "../header/Header";
 import { useGetUserData } from "../../../hooks/useGetUserData";
 import { useAuth } from "../../../auth/authContext";
 
@@ -21,7 +20,6 @@ const Home = () => {
 
   return (
     <>
-      <Header />
       <div className="home section">
         <div className="home__header">
           <h3 className="home__header__title">

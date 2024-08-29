@@ -1,6 +1,7 @@
 import Title from "../components/title/Title";
 import usePlayers from "../../hooks/usePlayers";
 import { ReactNode } from "react";
+import Header from "../components/header/Header";
 
 type Props = {
   playerId: string;
@@ -43,6 +44,7 @@ export default function PlayerDetail({ playerId }: Props) {
 
   return (
     <>
+      <Header />
       <Title
         titleName={`${player.Name} #${player.Number}`}
         back={true}

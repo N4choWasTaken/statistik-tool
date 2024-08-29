@@ -1,5 +1,6 @@
 import Title from "../components/title/Title";
 import usePlayers from "../../hooks/usePlayers";
+import Header from "../components/header/Header";
 
 export default function PlayerOverview() {
   const { players, loading, error } = usePlayers();
@@ -14,6 +15,7 @@ export default function PlayerOverview() {
 
   return (
     <>
+      <Header />
       <Title titleName="Übersicht Players" back={true} subtitle="" />
       <div className="section">
         <table className="simpletable tablehightlight">

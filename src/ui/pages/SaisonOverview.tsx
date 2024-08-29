@@ -1,5 +1,6 @@
 import Title from "../components/title/Title";
 import ItemList from "../components/itemlist/ItemList";
+import Header from "../components/header/Header";
 
 const item = [
   {
@@ -12,6 +13,7 @@ const item = [
 export default function SaisonOverview() {
   return (
     <>
+      <Header />
       <Title titleName="Übersicht Saisons" back={true} subtitle={""} />
       <ItemList items={item} />
     </>
