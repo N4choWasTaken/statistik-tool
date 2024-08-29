@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useGame } from "../../../hooks/useGame";
 
 const GameReplay = () => {
@@ -12,6 +13,8 @@ const GameReplay = () => {
     .toString()
     .slice(4, 16);
 
+  const navigate = useNavigate();
+
   return (
     <>
       {gameTitle !== "undefined vs. undefined" ? (
@@ -20,7 +23,7 @@ const GameReplay = () => {
             <div className="title">
               <div className="title__title">
                 <div className="back c-pointer">
-                  <a href="/season-detail/Season-24-25?seasonid=Season-24-25">
+                  <a onClick={() => navigate(-1)}>
                     <svg
                       width="23"
                       height="12"
