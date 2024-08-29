@@ -1,7 +1,6 @@
 // register.tsx
 import { useState } from "react";
-import { Navigate, Link } from "react-router-dom";
-import { useAuth } from "../../../../auth/authContext";
+import { Link } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../../../../auth/auth";
 
 const Register = () => {
@@ -11,12 +10,6 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  const { userLoggedIn } = useAuth() || {
-    currentUser: null,
-    userLoggedIn: false,
-    loading: false,
-  };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
