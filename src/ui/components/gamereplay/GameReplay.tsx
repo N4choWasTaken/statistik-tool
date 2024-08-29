@@ -20,7 +20,7 @@ const GameReplay = () => {
             <div className="title">
               <div className="title__title">
                 <div className="back c-pointer">
-                  <a href="/overview-season">
+                  <a href="/season-detail/Season-24-25?seasonid=Season-24-25">
                     <svg
                       width="23"
                       height="12"
