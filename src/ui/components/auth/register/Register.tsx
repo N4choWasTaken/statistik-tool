@@ -34,6 +34,8 @@ const Register = () => {
       setIsRegistering(true);
       try {
         await doCreateUserWithEmailAndPassword(userName, email, password);
+
+        window.location.href = "/";
       } catch (error) {
         if (error instanceof Error) {
           setErrorMessage(error.message);
@@ -60,7 +62,6 @@ const Register = () => {
           </a>
         </div>
       )}
-      {userLoggedIn && <Navigate to={"/"} replace={true} />}
       <main className="login section">
         <div>
           <div>
