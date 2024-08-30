@@ -18,6 +18,7 @@ import Unverified from "./ui/pages/Unverified";
 import ProfilePage from "./ui/pages/ProfilePage";
 import Imprint from "./ui/pages/Imprint";
 import DataPrivacy from "./ui/pages/DataPrivacy";
+import ResetPassword from "./ui/components/auth/resetpassword/ResetPassword";
 
 const App: React.FC = () => {
   const { players } = usePlayers();
@@ -78,8 +79,10 @@ const App: React.FC = () => {
           <>
             <Route path="/" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/resetpassword" element={<ResetPassword />} />
           </>
         )}
+        {/* public */}
         <Route path="/imprint" element={<Imprint />} />
         <Route path="/data-privacy" element={<DataPrivacy />} />
       </Routes>

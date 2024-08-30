@@ -2,15 +2,13 @@ import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
 import {
   doSignInWithEmailAndPassword,
-  doSignOut,
-  sendResetPasswordEmail,
 } from "../../../../auth/auth";
 import { useAuth } from "../../../../auth/authContext/index";
 
 const Login = () => {
   const queryParameters = new URLSearchParams(window.location.search);
   const resetPassword = queryParameters.get("reset") ?? "";
-  const { userLoggedIn, currentUser } = useAuth() || {
+  const { userLoggedIn } = useAuth() || {
     currentUser: null,
     userLoggedIn: false,
     loading: false,
@@ -170,13 +168,7 @@ const Login = () => {
               Forgot your password?{" "}
               <a
                 className="c-pointer"
-                onClick={() => {
-                  sendResetPasswordEmail(currentUser?.email ?? "").then(() => {
-                    doSignOut().then(() => {
-                      window.location.href = "/?reset=true";
-                    });
-                  });
-                }}
+                href="/resetpassword"
               >
                 Reset password
               </a>

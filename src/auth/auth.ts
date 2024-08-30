@@ -46,8 +46,9 @@ export const sendResetPasswordEmail = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
     // Provide feedback to the user
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Error sending password reset email:", error);
     // Provide feedback to the user
+    throw error; // Re-throw the error to be handled by the calling function
   }
 };
