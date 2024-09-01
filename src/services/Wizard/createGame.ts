@@ -10,7 +10,7 @@ import { Timestamp, setDoc, doc, addDoc, collection } from "firebase/firestore";
 export type PlayerWithStats = Player & { 
     attack: { error: number, kill: number, hits: number },
     block: { error: number, kill: number },
-    service: { error: number, ace: number },
+    service: { neutral: number, error: number, ace: number },
     receive: { error: number, positive: number, negative: number }
 }
 
@@ -57,7 +57,7 @@ function addStatsToPlayer(player: Player): PlayerWithStats {
         ...player,
         attack: { error: 0, kill: 0, hits: 0 },
         block: { error: 0, kill: 0 },
-        service: { error: 0, ace: 0 },
+        service: { neutral: 0, error: 0, ace: 0 },
         receive: { error: 0, positive: 0, negative: 0 }
     };
 }

@@ -37,7 +37,7 @@ export const updateGlobalPlayerStats = async (
         const existingStats = {
           attack: existingPlayerData?.attack || { error: 0, kill: 0, hits: 0 },
           block: existingPlayerData?.block || { error: 0, kill: 0 },
-          service: existingPlayerData?.service || { error: 0, ace: 0 },
+          service: existingPlayerData?.service || { neutral: 0, error: 0, ace: 0 },
           receive: existingPlayerData?.receive || {
             error: 0,
             positive: 0,

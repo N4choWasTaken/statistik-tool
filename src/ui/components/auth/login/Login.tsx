@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Navigate, Link } from "react-router-dom";
-import {
-  doSignInWithEmailAndPassword,
-} from "../../../../auth/auth";
+import { doSignInWithEmailAndPassword } from "../../../../auth/auth";
 import { useAuth } from "../../../../auth/authContext/index";
 
 const Login = () => {
@@ -166,10 +164,7 @@ const Login = () => {
 
             <p className="login__resetpassword">
               Forgot your password?{" "}
-              <a
-                className="c-pointer"
-                href="/resetpassword"
-              >
+              <a className="c-pointer" href="/resetpassword">
                 Reset password
               </a>
             </p>

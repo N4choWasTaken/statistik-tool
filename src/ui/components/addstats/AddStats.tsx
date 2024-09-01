@@ -1,6 +1,7 @@
-import useStore, { PlayerStore } from '../../../stores/StatsStore';
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
 
 interface Player {
+  service: any;
   Name: string;
   Number: number;
 }
@@ -50,17 +51,26 @@ const AddStats = ({
       //@ts-ignore
       selectedPlayer[statMode][key] !== undefined
     ) {
-      if ((statMode == 'attack' && key == 'error') || key == 'kill') {
+      if ((statMode == "attack" && key == "error") || key == "kill") {
         //@ts-ignore
         selectedPlayer[statMode][key] =
-        //@ts-ignore
-          (selectedPlayer[statMode][key] as number) + 1;
           //@ts-ignore
+          (selectedPlayer[statMode][key] as number) + 1;
+        //@ts-ignore
         selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
+      }
+      if ((statMode == "service" && key == "error") || key == "ace") {
+        //@ts-ignore
+        selectedPlayer[statMode][key] =
+          //@ts-ignore
+          (selectedPlayer[statMode][key] as number) + 1;
+        //@ts-ignore
+        selectedPlayer.service.neutral =
+          (selectedPlayer.service.neutral as number) + 1;
       } else {
         //@ts-ignore
         selectedPlayer[statMode][key] =
-        //@ts-ignore
+          //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
       }
     }
@@ -76,7 +86,7 @@ const AddStats = ({
   };
 
   return (
-    <div className={statMode ? 'section addstats' : 'section d-none addstats'}>
+    <div className={statMode ? "section addstats" : "section d-none addstats"}>
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">

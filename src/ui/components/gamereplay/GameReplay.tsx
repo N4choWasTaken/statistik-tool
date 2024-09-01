@@ -97,6 +97,7 @@ const GameReplay = () => {
                   <th className="gametable__title__field simpletable__title__field">
                     Service
                     <div className="gamereplay__title__field--wrapper">
+                      <span>Neutral</span>
                       <span>Ace</span>
                       <span>Error</span>
                     </div>
@@ -149,6 +150,7 @@ const GameReplay = () => {
                       </td>
                       <td className="gamereplay__row__field">
                         <div className="gamereplay__row__field--wrapper">
+                          <span>{player.service.neutral}</span>
                           <span>{player.service.ace}</span>
                           <span>{player.service.error}</span>
                         </div>

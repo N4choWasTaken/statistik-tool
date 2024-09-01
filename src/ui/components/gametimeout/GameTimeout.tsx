@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { useGame } from '../../../hooks/useGame';
+import { useNavigate } from "react-router-dom";
+import { useGame } from "../../../hooks/useGame";
 
 const GameTimeout = () => {
   const queryParameters = new URLSearchParams(window.location.search);
-  const gameid = queryParameters.get('gameid') ?? '';
+  const gameid = queryParameters.get("gameid") ?? "";
   const game = useGame(gameid);
   const gameTitle = `${game?.gameData?.homeTeam} vs. ${game?.gameData?.guestTeam}`;
   const allPlayers = game?.playersData;
@@ -28,11 +28,11 @@ const GameTimeout = () => {
       0
     );
     if (totalAttackRating === 0) {
-      return ['Attacks are neutral', '--notice'];
+      return ["Attacks are neutral", "--notice"];
     } else if (totalAttackRating > 0) {
-      return ['Attacks are good, keep it up', ''];
+      return ["Attacks are good, keep it up", ""];
     } else {
-      return ['Attacks are bad, need to improve', '--error'];
+      return ["Attacks are bad, need to improve", "--error"];
     }
   };
 
@@ -48,18 +48,19 @@ const GameTimeout = () => {
       0
     );
     if (totalBlockRating === 0) {
-      return ['Blocks are neutral', '--notice'];
+      return ["Blocks are neutral", "--notice"];
     } else if (totalBlockRating > 0) {
-      return ['Blocks are good, keep it up!', ''];
+      return ["Blocks are good, keep it up!", ""];
     } else {
-      return ['Too many block-errors, reduce!', '--error'];
+      return ["Too many block-errors, reduce!", "--error"];
     }
   };
 
   const performanceRatingService = () => {
     const serviceRating = allPlayers?.map((player) => {
       const service = player.service;
-      const serviceRating = service.ace * 1 + service.error * -1;
+      const serviceRating =
+        service.neutral * 0 + service.ace * 1 + service.error * -1;
       return serviceRating;
     });
     // add every rating into one value
@@ -68,11 +69,11 @@ const GameTimeout = () => {
       0
     );
     if (totalServiceRating === 0) {
-      return ['Service are neutral', '--notice'];
+      return ["Service are neutral", "--notice"];
     } else if (totalServiceRating > 0) {
-      return ['Service are good, keep it up!', ''];
+      return ["Service are good, keep it up!", ""];
     } else {
-      return ['Too many service-errors, reduce!', '--error'];
+      return ["Too many service-errors, reduce!", "--error"];
     }
   };
 
@@ -89,11 +90,11 @@ const GameTimeout = () => {
       0
     );
     if (totalReceiveRating === 0) {
-      return ['Receives are neutral', '--notice'];
+      return ["Receives are neutral", "--notice"];
     } else if (totalReceiveRating > 0) {
-      return ['Receives are good, keep it up!', ''];
+      return ["Receives are good, keep it up!", ""];
     } else {
-      return ['Too many receives-errors, reduce!', '--error'];
+      return ["Too many receives-errors, reduce!", "--error"];
     }
   };
 
@@ -153,7 +154,7 @@ const GameTimeout = () => {
                   >
                     {/* display tip.key and tip.value */}
                     {Object.entries(tip).map(([key, value]) => (
-                      <p style={{ marginBottom: '0' }} key={key}>
+                      <p style={{ marginBottom: "0" }} key={key}>
                         <b>{key}</b>: {value[0]}
                       </p>
                     ))}
@@ -173,7 +174,6 @@ const GameTimeout = () => {
                       <span>Hits</span>
                       <span>Kills</span>
                       <span>Error</span>
-                      <span>Kill%</span>
                       <span>Effi.</span>
                     </div>
                   </th>
@@ -187,6 +187,7 @@ const GameTimeout = () => {
                   <th className="gametable__title__field simpletable__title__field">
                     Service
                     <div className="gametimeout__title__field--wrapper">
+                      <span>Neutral</span>
                       <span>Ace</span>
                       <span>Error</span>
                     </div>
@@ -214,14 +215,6 @@ const GameTimeout = () => {
                           <span>{player.attack.error}</span>
                           <span>
                             {Math.max(
-                              (player.attack.kill / player.attack.hits) * 100 ||
-                                0,
-                              0
-                            ).toFixed(0)}
-                            %
-                          </span>
-                          <span>
-                            {Math.max(
                               ((player.attack.kill - player.attack.error) /
                                 player.attack.hits) *
                                 100 || 0,
@@ -239,6 +232,7 @@ const GameTimeout = () => {
                       </td>
                       <td className="gametimeout__row__field">
                         <div className="gametimeout__row__field--wrapper">
+                          <span>{player.service.neutral}</span>
                           <span>{player.service.ace}</span>
                           <span>{player.service.error}</span>
                         </div>

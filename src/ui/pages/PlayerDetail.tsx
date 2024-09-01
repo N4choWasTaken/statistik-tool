@@ -79,6 +79,20 @@ export default function PlayerDetail({ playerId }: Props) {
                   player.receive.error}
               </td>
             </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Attack */}
+      <div className="section">
+        <table className="simpletable tablehightlight">
+          <tbody>
+            <tr className="simpletable__title">
+              <th className="simpletable__title__field--playerdetail">
+                Attack
+              </th>
+              <th className="simpletable__title__field--playerdetail"></th>
+            </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Kill %</td>
               <td className="simpletable__row__field">
@@ -100,20 +114,6 @@ export default function PlayerDetail({ playerId }: Props) {
                 ).toFixed(0)}
                 %
               </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      {/* Attack */}
-      <div className="section">
-        <table className="simpletable tablehightlight">
-          <tbody>
-            <tr className="simpletable__title">
-              <th className="simpletable__title__field--playerdetail">
-                Attack
-              </th>
-              <th className="simpletable__title__field--playerdetail"></th>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Hits</td>
@@ -160,6 +160,36 @@ export default function PlayerDetail({ playerId }: Props) {
                 Service
               </th>
               <th className="simpletable__title__field--playerdetail"></th>
+            </tr>
+            <tr className="simpletable__row">
+              <td className="simpletable__row__field">Service %</td>
+              <td className="simpletable__row__field">
+                {Math.max(
+                  ((player.service.ace - player.service.error) /
+                    player.service.neutral) *
+                    100 || 0,
+                  0
+                ).toFixed(0)}
+                %
+              </td>
+            </tr>
+            <tr className="simpletable__row">
+              <td className="simpletable__row__field">Service Efficency</td>
+              <td className="simpletable__row__field">
+                {Math.max(
+                  ((player.service.ace - player.service.error) /
+                    player.service.neutral) *
+                    100 || 0,
+                  0
+                ).toFixed(0)}
+                %
+              </td>
+            </tr>
+            <tr className="simpletable__row">
+              <td className="simpletable__row__field">Services</td>
+              <td className="simpletable__row__field">
+                {player.service.neutral}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Ace</td>
