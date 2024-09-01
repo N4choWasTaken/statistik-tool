@@ -1,6 +1,6 @@
-import usePlayers from '../../../hooks/usePlayers';
-import { PlayerWithStats } from '../../../services/Wizard/createGame';
-import useStore, { PlayerStore } from '../../../stores/StatsStore';
+import usePlayers from "../../../hooks/usePlayers";
+import { PlayerWithStats } from "../../../services/Wizard/createGame";
+import useStore, { PlayerStore } from "../../../stores/StatsStore";
 
 interface Player {
   id: string;
@@ -29,7 +29,7 @@ const SubPlayer = ({
     const playerStoreIndex = storePlayers.findIndex((p) => p.id === player.id);
 
     if (playerStoreIndex === -1) {
-      console.error('Player not found in storePlayers!');
+      console.error("Player not found in storePlayers!");
       return;
     }
 
@@ -43,7 +43,7 @@ const SubPlayer = ({
       ...newPlayer,
       attack: { error: 0, kill: 0, hits: 0 },
       block: { error: 0, kill: 0 },
-      service: { error: 0, ace: 0 },
+      service: { neutral: 0, error: 0, ace: 0 },
       receive: { error: 0, positive: 0, negative: 0 },
       active: true,
     };
@@ -63,7 +63,7 @@ const SubPlayer = ({
   };
 
   return (
-    <div className={player ? 'section subplayer' : 'section d-none subplayer'}>
+    <div className={player ? "section subplayer" : "section d-none subplayer"}>
       <table className="simpletable tablehightlight">
         <tbody>
           <tr className="simpletable__title">
@@ -82,7 +82,7 @@ const SubPlayer = ({
                   />
                 </svg>
               </a>
-              Select New Player (Old Player -{' '}
+              Select New Player (Old Player -{" "}
               <span className="capitalized">{player.Name}</span> #
               {player.Number})
             </th>
