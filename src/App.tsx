@@ -69,6 +69,8 @@ const App: React.FC = () => {
               path="/season-detail/Season-24-25"
               element={<SaisonDetail />}
             />
+            <Route path="/imprint" element={<Imprint />} />
+            <Route path="/data-privacy" element={<DataPrivacy />} />
           </>
         ) : userLoggedIn && userData.role === "unverified" ? (
           <>
@@ -82,9 +84,6 @@ const App: React.FC = () => {
             <Route path="/resetpassword" element={<ResetPassword />} />
           </>
         )}
-        {/* public */}
-        <Route path="/imprint" element={<Imprint />} />
-        <Route path="/data-privacy" element={<DataPrivacy />} />
       </Routes>
     </Router>
   );

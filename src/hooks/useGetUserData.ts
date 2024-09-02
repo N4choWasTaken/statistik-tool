@@ -23,5 +23,5 @@ export function useGetUserData(uid: string) {
     fetchUsers();
   }, [uid]);
 
-return userData;
+  return userData;
 }

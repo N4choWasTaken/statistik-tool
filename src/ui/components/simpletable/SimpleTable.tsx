@@ -1,4 +1,4 @@
-import usePlayers from "../../../hooks/usePlayers";
+import usePlayers from '../../../hooks/usePlayers';
 
 const SimpleTable = () => {
   const { players, loading, error } = usePlayers();

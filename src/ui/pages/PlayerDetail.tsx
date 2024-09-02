@@ -1,7 +1,7 @@
-import Title from "../components/title/Title";
-import usePlayers from "../../hooks/usePlayers";
-import { ReactNode } from "react";
-import Header from "../components/header/Header";
+import Title from '../components/title/Title';
+import usePlayers from '../../hooks/usePlayers';
+import { ReactNode } from 'react';
+import Header from '../components/header/Header';
 
 type Props = {
   playerId: string;
@@ -20,8 +20,8 @@ export default function PlayerDetail({ playerId }: Props) {
     Number: string;
     Name: string;
   } = {
-    Name: "",
-    Number: "",
+    Name: '',
+    Number: '',
   };
 
   players.forEach((possiblePlayer) => {
