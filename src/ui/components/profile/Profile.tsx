@@ -77,7 +77,7 @@ const Profile = () => {
             Role: {userData ? `${userData.role}` : null}
           </h5>
         </div>
-        {userData.playerRef ? (
+        {player.Name !== '' ? (
           <>
             <div className="section">
               <table className="simpletable tablehightlight">
