@@ -27,7 +27,7 @@ const PlayerTable = ({ players, active, setActive }: PlayerTableProps) => {
 
   return (
     <div className="section">
-      <table className="simpletable tablehightlight">
+      <table className="simpletable playerTableSelection">
         <tbody>
           <tr className="simpletable__title">
             <th className="simpletable__title__field">

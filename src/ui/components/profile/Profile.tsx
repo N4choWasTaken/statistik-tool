@@ -79,7 +79,7 @@ const Profile = () => {
         </div>
         {player.Name !== '' ? (
           <>
-            <div>
+            <div style={{ marginBottom: '24px' }}>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
@@ -116,7 +116,7 @@ const Profile = () => {
             </div>
 
             {/* Attack */}
-            <div className="section">
+            <div style={{ marginBottom: '24px' }}>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
@@ -172,7 +172,7 @@ const Profile = () => {
             </div>
 
             {/* Block */}
-            <div className="section">
+            <div style={{ marginBottom: '24px' }}>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
@@ -198,7 +198,7 @@ const Profile = () => {
             </div>
 
             {/* service */}
-            <div className="section">
+            <div style={{ marginBottom: '24px' }}>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
@@ -256,7 +256,7 @@ const Profile = () => {
             </div>
 
             {/* Receive */}
-            <div className="section">
+            <div style={{ marginBottom: '24px' }}>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
