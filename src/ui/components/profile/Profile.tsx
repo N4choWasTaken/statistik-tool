@@ -79,7 +79,7 @@ const Profile = () => {
         </div>
         {player.Name !== '' ? (
           <>
-            <div className="section">
+            <div>
               <table className="simpletable tablehightlight">
                 <tbody>
                   <tr className="simpletable__title">
