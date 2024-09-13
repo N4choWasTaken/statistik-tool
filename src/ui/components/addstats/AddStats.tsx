@@ -1,7 +1,6 @@
 import useStore, { PlayerStore } from "../../../stores/StatsStore";
 
 interface Player {
-  service: any;
   Name: string;
   Number: number;
 }
@@ -44,6 +43,9 @@ const AddStats = ({
     // Get the correct player and statMode
     const selectedPlayer = players[playerIndex];
 
+    console.log(statMode);
+    
+
     // Dynamically increase the value of the specific stat (e.g., attack.error or service.ace)
     if (
       //@ts-ignore
@@ -58,15 +60,13 @@ const AddStats = ({
           (selectedPlayer[statMode][key] as number) + 1;
         //@ts-ignore
         selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
-      }
-      if ((statMode == "service" && key == "error") || key == "ace") {
+      } else if ((statMode == "service" && key == "ace") || key == "error") {
         //@ts-ignore
         selectedPlayer[statMode][key] =
           //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
-        //@ts-ignore
-        selectedPlayer.service.neutral =
-          (selectedPlayer.service.neutral as number) + 1;
+          //@ts-ignore
+        selectedPlayer.service.neutral = (selectedPlayer.service.neutral as number) + 1;
       } else {
         //@ts-ignore
         selectedPlayer[statMode][key] =
