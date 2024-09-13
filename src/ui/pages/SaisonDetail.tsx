@@ -72,7 +72,7 @@ export default function SaisonOverview() {
         <div className="itemlist__seasondetail__link__wrapper">
           {items.length === 0 && (
             <a className="itemlist__link--notice" href="/">
-              No Games in this Season yet!
+              No games found in this season :(
             </a>
           )}
           {items

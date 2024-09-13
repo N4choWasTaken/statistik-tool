@@ -16,7 +16,7 @@ export default function PlayerOverview() {
   return (
     <>
       <Header />
-      <Title titleName="Übersicht Players" back={true} subtitle="" />
+      <Title titleName="Overview players" back={true} subtitle="" />
       <div className="section">
         <table className="simpletable tablehightlight">
           <tbody>

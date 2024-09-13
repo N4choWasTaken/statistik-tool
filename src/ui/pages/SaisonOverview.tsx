@@ -14,7 +14,7 @@ export default function SaisonOverview() {
   return (
     <>
       <Header />
-      <Title titleName="Übersicht Saisons" back={true} subtitle={""} />
+      <Title titleName="Overview seasons" back={true} subtitle={""} />
       <ItemList items={item} />
     </>
   );
