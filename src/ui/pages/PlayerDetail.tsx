@@ -12,6 +12,7 @@ export default function PlayerDetail({ playerId }: Props) {
   const playerID = playerId;
   //@ts-ignore
   let player: {
+    mvp: number;
     gamesPlayed: ReactNode;
     receive: any;
     service: any;
@@ -62,21 +63,29 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Games played</td>
-              <td className="simpletable__row__field">{player.gamesPlayed}</td>
+              <td className="simpletable__row__field text-right">
+                {player.gamesPlayed}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Points scored</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.attack.kill + player.block.kill + player.service.ace}
               </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Errors</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.attack.error +
                   player.block.error +
                   player.service.error +
                   player.receive.error}
+              </td>
+            </tr>
+            <tr className="simpletable__row">
+              <td className="simpletable__row__field">MVPs</td>
+              <td className="simpletable__row__field text-right">
+                {player.mvp}
               </td>
             </tr>
           </tbody>
@@ -95,7 +104,7 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Kill %</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {Math.max(
                   (player.attack.kill / player.attack.hits) * 100 || 0,
                   0
@@ -105,7 +114,7 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Attack Efficency</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {Math.max(
                   ((player.attack.kill - player.attack.error) /
                     player.attack.hits) *
@@ -117,15 +126,21 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Hits</td>
-              <td className="simpletable__row__field">{player.attack.hits}</td>
+              <td className="simpletable__row__field text-right">
+                {player.attack.hits}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Kills</td>
-              <td className="simpletable__row__field">{player.attack.kill}</td>
+              <td className="simpletable__row__field text-right">
+                {player.attack.kill}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Errors</td>
-              <td className="simpletable__row__field">{player.attack.error}</td>
+              <td className="simpletable__row__field text-right">
+                {player.attack.error}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -141,11 +156,15 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Kills</td>
-              <td className="simpletable__row__field">{player.block.kill}</td>
+              <td className="simpletable__row__field text-right">
+                {player.block.kill}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Errors</td>
-              <td className="simpletable__row__field">{player.block.error}</td>
+              <td className="simpletable__row__field text-right">
+                {player.block.error}
+              </td>
             </tr>
           </tbody>
         </table>
@@ -163,7 +182,7 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Service %</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {Math.max(
                   ((player.service.ace - player.service.error) /
                     player.service.neutral) *
@@ -175,7 +194,7 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Service Efficency</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {Math.max(
                   ((player.service.ace - player.service.error) /
                     player.service.neutral) *
@@ -187,17 +206,19 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Services</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.service.neutral}
               </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Ace</td>
-              <td className="simpletable__row__field">{player.service.ace}</td>
+              <td className="simpletable__row__field text-right">
+                {player.service.ace}
+              </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Errors</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.service.error}
               </td>
             </tr>
@@ -217,19 +238,19 @@ export default function PlayerDetail({ playerId }: Props) {
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Positive</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.receive.positive}
               </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Negative</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.receive.negative}
               </td>
             </tr>
             <tr className="simpletable__row">
               <td className="simpletable__row__field">Errors</td>
-              <td className="simpletable__row__field">
+              <td className="simpletable__row__field text-right">
                 {player.receive.error}
               </td>
             </tr>

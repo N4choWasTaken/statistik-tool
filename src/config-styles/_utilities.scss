@@ -8,6 +8,10 @@
   }
 }
 
+.text-right {
+  text-align: right !important;
+}
+
 .tablehightlight {
   & tr {
     &:nth-child(2n + 3) {
