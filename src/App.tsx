@@ -58,6 +58,7 @@ const App: React.FC = () => {
               />
             ))}
             <Route path="/" element={<Landing />} />
+            <Route path="*" element={<Landing />} />
             <Route path="/game-active" element={<GameActive />} />
             <Route path="/game-replay" element={<GameReplay />} />
             <Route path="/game-timeout" element={<GameTimeout />} />
