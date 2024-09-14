@@ -77,10 +77,12 @@ const App: React.FC = () => {
           <>
             <Route path="/" element={<Unverified />} />
             <Route path="/profile" element={<ProfilePage />} />
+            <Route path="*" element={<Unverified />} />
           </>
         ) : (
           <>
             <Route path="/" element={<Login />} />
+            <Route path="*" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/resetpassword" element={<ResetPassword />} />
           </>
