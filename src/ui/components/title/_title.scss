@@ -23,3 +23,19 @@
     align-items: center;
   }
 }
+
+.back {
+  & a {
+    padding: 1.2rem 0;
+
+    & svg {
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      & svg {
+        transform: translateX(-1rem);
+      }
+    }
+  }
+}
