@@ -79,7 +79,7 @@ const Profile = () => {
             Role: {userData ? `${userData.role}` : null}
           </h5>
         </div>
-        {userData ? (
+        {userData.role == 'admin' ? (
           <div>
             <AdminControls />
           </div>
