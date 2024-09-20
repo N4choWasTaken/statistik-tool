@@ -5,6 +5,7 @@ import Title from '../title/Title';
 import { useGetUserData } from '../../../hooks/useGetUserData';
 import usePlayers from '../../../hooks/usePlayers';
 import { ReactNode } from 'react';
+import AdminControls from '../admincontrols/AdminControls';
 
 const Profile = () => {
   const { players, loading, error } = usePlayers();
@@ -78,6 +79,11 @@ const Profile = () => {
             Role: {userData ? `${userData.role}` : null}
           </h5>
         </div>
+        {userData ? (
+          <div>
+            <AdminControls />
+          </div>
+        ) : null}
         {player.Name !== '' ? (
           <>
             <div style={{ marginBottom: '24px' }}>
