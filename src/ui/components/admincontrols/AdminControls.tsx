@@ -4,6 +4,19 @@ import { resetGlobalPlayerStats } from '../../../services/upload/resetGlobalPlay
 const Profile = () => {
   const { players, loading, error } = usePlayers();
 
+  const resetStats = () => {
+    // create a prompt if the user is sure they want to reset the stats
+    if (
+      !window.confirm(
+        'Are you sure? This action cannot be undone. Are you really really reeeeaaally sure???'
+      )
+    ) {
+      return;
+    }
+    // @ts-ignore
+    resetGlobalPlayerStats(players);
+  };
+
   if (loading)
     return (
       <div className="loader__wrapper">
@@ -18,8 +31,7 @@ const Profile = () => {
         <h3 className="admincontrols__title">Danger Zone</h3>
         <button
           onClick={() => {
-            // @ts-ignore
-            resetGlobalPlayerStats(players);
+            resetStats();
           }}
           className="admincontrols__button"
         >
