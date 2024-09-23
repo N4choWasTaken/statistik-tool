@@ -4,6 +4,8 @@ import { useGetUserData } from '../../../hooks/useGetUserData';
 import { useState } from 'react';
 import { useAuth } from '../../../auth/authContext';
 import { editYouTubeLink } from '../../../services/upload/editYouTubeLink';
+import { editMvpStat } from '../../../services/upload/editMvpStat';
+import usePlayers from '../../../hooks/usePlayers';
 
 const GameReplay = () => {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -26,6 +28,7 @@ const GameReplay = () => {
   };
 
   const [ytLink, setytLink] = useState('');
+  const { players } = usePlayers();
 
   // @ts-ignore
   const userData = useGetUserData(currentUser?.uid ?? '');
@@ -45,6 +48,14 @@ const GameReplay = () => {
       // reload page to show updated data
       window.location.reload();
     }
+  };
+
+  const changeMVPStat = async (operation: string, playerID: string) => {
+    console.log(gameid);
+
+    //@ts-ignore
+    await editMvpStat(operation, playerID, players, gameid);
+    window.location.reload();
   };
 
   return (
@@ -156,6 +167,21 @@ const GameReplay = () => {
                     <tr className="simpletable__row" key={player.id}>
                       <td className="gametable__row__field--player simpletable__row__field">
                         {player.Name}
+                        {game.gameData?.mvpId == player.id ? (
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 18 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            style={{ marginLeft: '10px' }}
+                          >
+                            <path
+                              d="M9.86923 0.93343L11.8994 5.04707C12.0406 5.33318 12.3135 5.53143 12.6293 5.57723L17.1691 6.23693C17.9643 6.35258 18.2816 7.32955 17.7064 7.89013L14.4214 11.0921C14.1931 11.3148 14.0888 11.6358 14.1428 11.9501L14.9182 16.4715C15.0541 17.2633 14.2228 17.8671 13.5117 17.4935L9.45133 15.359C9.16898 15.2107 8.83143 15.2107 8.54908 15.359L4.48875 17.4935C3.77761 17.8675 2.94632 17.2633 3.08224 16.4715L3.85759 11.9501C3.91166 11.6358 3.80727 11.3148 3.57899 11.0921L0.294008 7.89013C-0.281211 7.32917 0.0360604 6.3522 0.831305 6.23693L5.37111 5.57723C5.68687 5.53143 5.95984 5.33318 6.10102 5.04707L8.13118 0.93343C8.48637 0.212904 9.51366 0.212904 9.86923 0.93343Z"
+                              fill="#ED8A19"
+                            />
+                          </svg>
+                        ) : null}
                       </td>
                       <td className="gamereplay__row__field">
                         <div className="gamereplay__row__field--wrapper">
@@ -258,6 +284,50 @@ const GameReplay = () => {
                   </svg>
                   Change
                 </button>
+                <div
+                  className={
+                    game.gameData?.mvpId != ''
+                      ? 'gamereplay__admincontrols--mvp gamereplay__admincontrols--mvp-disabled'
+                      : 'gamereplay__admincontrols--mvp'
+                  }
+                >
+                  <h5>
+                    {game.gameData?.mvpId != '' ? (
+                      <svg
+                        width="19"
+                        height="22"
+                        viewBox="0 0 19 22"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style={{ marginRight: '10px' }}
+                      >
+                        <path
+                          d="M15.4375 6.51483H14.25V4.42433C14.25 3.25093 13.7496 2.12558 12.8588 1.29586C11.968 0.466134 10.7598 0 9.5 0C8.24022 0 7.03204 0.466134 6.14124 1.29586C5.25044 2.12558 4.75 3.25093 4.75 4.42433V6.51483H3.5625C2.61767 6.51483 1.71153 6.86443 1.04343 7.48672C0.375334 8.10902 0 8.95303 0 9.83308V18.6817C0 19.5618 0.375334 20.4058 1.04343 21.0281C1.71153 21.6504 2.61767 22 3.5625 22H15.4375C16.3823 22 17.2885 21.6504 17.9566 21.0281C18.6247 20.4058 19 19.5618 19 18.6817V9.83308C19 8.95303 18.6247 8.10902 17.9566 7.48672C17.2885 6.86443 16.3823 6.51483 15.4375 6.51483ZM7.125 4.42433C7.10903 3.82185 7.34997 3.238 7.79509 2.8006C8.2402 2.3632 8.85324 2.10787 9.5 2.0905C10.1468 2.10787 10.7598 2.3632 11.2049 2.8006C11.65 3.238 11.891 3.82185 11.875 4.42433V6.51483H7.125V4.42433ZM16.625 18.6817C16.625 18.9751 16.4999 19.2564 16.2772 19.4639C16.0545 19.6713 15.7524 19.7878 15.4375 19.7878H3.5625C3.24756 19.7878 2.94551 19.6713 2.72281 19.4639C2.50011 19.2564 2.375 18.9751 2.375 18.6817V9.83308C2.375 9.53973 2.50011 9.25839 2.72281 9.05096C2.94551 8.84353 3.24756 8.727 3.5625 8.727H15.4375C15.7524 8.727 16.0545 8.84353 16.2772 9.05096C16.4999 9.25839 16.625 9.53973 16.625 9.83308V18.6817Z"
+                          fill="#000"
+                        />
+                      </svg>
+                    ) : null}
+                    {game.gameData?.mvpId != ''
+                      ? 'MVP was already chosen'
+                      : 'Choose the MVP'}
+                  </h5>
+                  {allPlayers?.map((player) => {
+                    return (
+                      <div key={player.id}>
+                        <button
+                          onClick={() => changeMVPStat('add', player.id)}
+                          className={
+                            game.gameData?.mvpId == player.id
+                              ? 'gamereplay__admincontrols--mvp-btn gamereplay__admincontrols--mvp-btn-active'
+                              : 'gamereplay__admincontrols--mvp-btn'
+                          }
+                        >
+                          {player.Name} #{player.Number}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ) : null}
           </div>
