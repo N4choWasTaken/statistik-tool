@@ -283,7 +283,7 @@ export default function PlayerDetail({ playerId }: Props) {
           </tbody>
         </table>
       </div>
-      {userData.role == 'admin' ? (
+      {userData.role == 'admin' || userData.role == 'moderator' ? (
         <div className="gamereplay__admincontrols section">
           <h3>
             <svg

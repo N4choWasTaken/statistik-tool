@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useAuth } from '../../../auth/authContext';
 import { editYouTubeLink } from '../../../services/upload/editYouTubeLink';
 import { editMvpStat } from '../../../services/upload/editMvpStat';
-import usePlayers from '../../../hooks/usePlayers';
+import { deleteGlobalGame } from '../../../services/upload/deleteGlobalGame';
 
 const GameReplay = () => {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -28,7 +28,6 @@ const GameReplay = () => {
   };
 
   const [ytLink, setytLink] = useState('');
-  const { players } = usePlayers();
 
   // @ts-ignore
   const userData = useGetUserData(currentUser?.uid ?? '');
@@ -51,11 +50,22 @@ const GameReplay = () => {
   };
 
   const changeMVPStat = async (operation: string, playerID: string) => {
-    console.log(gameid);
-
     //@ts-ignore
-    await editMvpStat(operation, playerID, players, gameid);
+    await editMvpStat(operation, playerID, allPlayers, gameid);
     window.location.reload();
+  };
+
+  const deleteGame = async () => {
+    if (
+      !window.confirm(
+        'Are you sure? This action cannot be undone. Are you really really reeeeaaally sure???'
+      )
+    ) {
+      return;
+    }
+    //@ts-ignore
+    await deleteGlobalGame(gameid, allPlayers);
+    window.location.href = '/';
   };
 
   return (
@@ -107,7 +117,7 @@ const GameReplay = () => {
                   >
                     <g>
                       <path
-                        style={{ fill: '#014228' }}
+                        style={{ fill: '#000' }}
                         d="M365.257,67.393H95.744C42.866,67.393,0,110.259,0,163.137v134.728
 		c0,52.878,42.866,95.744,95.744,95.744h269.513c52.878,0,95.744-42.866,95.744-95.744V163.137
 		C461.001,110.259,418.135,67.393,365.257,67.393z M300.506,237.056l-126.06,60.123c-3.359,1.602-7.239-0.847-7.239-4.568V168.607
@@ -167,7 +177,9 @@ const GameReplay = () => {
                     <tr className="simpletable__row" key={player.id}>
                       <td className="gametable__row__field--player simpletable__row__field">
                         {player.Name}
-                        {game.gameData?.mvpId == player.id ? (
+                        {}
+                        {game.gameData?.mvpId == player.id &&
+                        game.gameData?.mvpId != null ? (
                           <svg
                             width="18"
                             height="18"
@@ -233,7 +245,7 @@ const GameReplay = () => {
                 {/* loop here to spit out data */}
               </tbody>
             </table>
-            {userData.role == 'admin' ? (
+            {userData.role == 'admin' || userData.role == 'moderator' ? (
               <div className="gamereplay__admincontrols">
                 <h3>
                   <svg
@@ -286,13 +298,14 @@ const GameReplay = () => {
                 </button>
                 <div
                   className={
-                    game.gameData?.mvpId != ''
+                    game.gameData?.mvpId != '' && game.gameData?.mvpId != null
                       ? 'gamereplay__admincontrols--mvp gamereplay__admincontrols--mvp-disabled'
                       : 'gamereplay__admincontrols--mvp'
                   }
                 >
                   <h5>
-                    {game.gameData?.mvpId != '' ? (
+                    {game.gameData?.mvpId != '' &&
+                    game.gameData?.mvpId != null ? (
                       <svg
                         width="19"
                         height="22"
@@ -307,7 +320,7 @@ const GameReplay = () => {
                         />
                       </svg>
                     ) : null}
-                    {game.gameData?.mvpId != ''
+                    {game.gameData?.mvpId != '' && game.gameData?.mvpId != null
                       ? 'MVP was already chosen'
                       : 'Choose the MVP'}
                   </h5>
@@ -328,6 +341,62 @@ const GameReplay = () => {
                     );
                   })}
                 </div>
+              </div>
+            ) : null}
+            {userData.role == 'admin' ? (
+              <div className="gamereplay__admincontrols__danger">
+                <h3 className="gamereplay__admincontrols__danger--title">
+                  <svg
+                    width="28"
+                    height="25"
+                    viewBox="0 0 28 25"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginRight: '10px' }}
+                  >
+                    <path
+                      d="M14.25 10.2727L14.1648 16.5455H13.1762L13.0909 10.2727H14.25ZM13.6705 19.0682C13.4602 19.0682 13.2798 18.9929 13.1293 18.8423C12.9787 18.6918 12.9034 18.5114 12.9034 18.3011C12.9034 18.0909 12.9787 17.9105 13.1293 17.7599C13.2798 17.6094 13.4602 17.5341 13.6705 17.5341C13.8807 17.5341 14.0611 17.6094 14.2117 17.7599C14.3622 17.9105 14.4375 18.0909 14.4375 18.3011C14.4375 18.4403 14.402 18.5682 14.331 18.6847C14.2628 18.8011 14.1705 18.8949 14.054 18.9659C13.9404 19.0341 13.8125 19.0682 13.6705 19.0682Z"
+                      fill="#FF0000"
+                    />
+                    <path
+                      d="M26.0419 19.2117L16.5756 3.36213C15.4116 1.41319 12.5885 1.41318 11.4244 3.36213L1.95813 19.2117C0.763808 21.2114 2.20453 23.75 4.53371 23.75H23.4663C25.7955 23.75 27.2362 21.2114 26.0419 19.2117Z"
+                      stroke="#FF0000"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  Danger Zone
+                </h3>
+                <button
+                  onClick={() => deleteGame()}
+                  className="gamereplay__admincontrols__danger--btn"
+                >
+                  <svg
+                    width="17"
+                    height="20"
+                    viewBox="0 0 17 20"
+                    fill="#fff"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginRight: '10px' }}
+                  >
+                    <path
+                      d="M13.8884 2.39617H10.7752C10.6199 1.04952 9.47418 0 8.08654 0C6.69893 0 5.55336 1.04948 5.39806 2.39617H2.28473C1.02486 2.39617 0 3.42131 0 4.68114V4.79838C0 5.76114 0.599466 6.58518 1.44394 6.92094V17.715C1.44394 18.9749 2.46892 20 3.72871 20H12.4444C13.7043 20 14.7292 18.9748 14.7292 17.715V6.92098C15.5736 6.58518 16.1731 5.76114 16.1731 4.79843V4.68119C16.1731 3.42131 15.1482 2.39617 13.8884 2.39617ZM8.08654 1.08364C8.87575 1.08364 9.5345 1.64932 9.68026 2.39617H6.4931C6.63882 1.64928 7.29761 1.08364 8.08654 1.08364ZM13.6455 17.715C13.6455 18.3774 13.1066 18.9164 12.4444 18.9164H3.72867C3.06648 18.9164 2.52754 18.3774 2.52754 17.715V7.08336H13.6455V17.715ZM15.0895 4.79838C15.0895 5.46078 14.5505 5.99976 13.8883 5.99976H2.28473C1.62254 5.99976 1.0836 5.46078 1.0836 4.79838V4.68114C1.0836 4.01875 1.62254 3.47977 2.28473 3.47977H13.8884C14.5506 3.47977 15.0895 4.01875 15.0895 4.68114L15.0895 4.79838Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M5.18165 17.5306C5.48089 17.5306 5.72345 17.2879 5.72345 16.9888V10.8883C5.72345 10.5891 5.48085 10.3464 5.18165 10.3464C4.88246 10.3464 4.63985 10.5891 4.63985 10.8883V16.9888C4.63981 17.288 4.88242 17.5306 5.18165 17.5306Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M8.08654 17.5306C8.38577 17.5306 8.62838 17.2879 8.62838 16.9888V10.8883C8.62838 10.5891 8.38569 10.3464 8.08654 10.3464C7.78734 10.3464 7.54474 10.5891 7.54474 10.8883V16.9888C7.54474 17.288 7.7873 17.5306 8.08654 17.5306Z"
+                      fill="#fff"
+                    />
+                    <path
+                      d="M10.9914 17.5306C11.2906 17.5306 11.5332 17.2879 11.5332 16.9888V10.8883C11.5332 10.5891 11.2906 10.3464 10.9914 10.3464C10.6921 10.3464 10.4496 10.5891 10.4496 10.8883V16.9888C10.4495 17.288 10.6922 17.5306 10.9914 17.5306Z"
+                      fill="#fff"
+                    />
+                  </svg>
+                  Delete Game
+                </button>
               </div>
             ) : null}
           </div>

@@ -7,7 +7,7 @@ interface Player {
 }
 
 export const editMvpStat = async (
-  operation: string,
+  opperation: string,
   playerId: string,
   players: Player[],
   gameid: string
@@ -28,12 +28,16 @@ export const editMvpStat = async (
       await Promise.all(
         players.map(async (player) => {
           const playerDocRef = doc(playerCollectionRef, player.id);
-          // if operation is add, increment the mvp stat by 1, else decrement by 1
-          if (operation === 'add') {
+
+          // Ensure mvp is defined
+          const mvp = player.mvp ?? 0;
+
+          // if opperation is add, increment the mvp stat by 1, else decrement by 1
+          if (opperation === 'add') {
             await setDoc(
               playerDocRef,
               {
-                mvp: player.id === playerId ? player.mvp + 1 : player.mvp,
+                mvp: player.id === playerId ? mvp + 1 : mvp,
               },
               { merge: true }
             );
@@ -41,13 +45,25 @@ export const editMvpStat = async (
             await setDoc(
               playerDocRef,
               {
-                mvp: player.id === playerId ? player.mvp - 1 : player.mvp,
+                mvp: player.id === playerId ? mvp - 1 : mvp,
               },
               { merge: true }
             );
           }
         })
       );
+    } else {
+      if (gameid !== '') {
+        const gameCollectionRef = collection(db, 'Games', gameid);
+        // if gameid is set, update the mvp field in the game document to the playerId
+        await setDoc(
+          doc(gameCollectionRef),
+          {
+            mvpId: playerId,
+          },
+          { merge: true }
+        );
+      }
     }
   } catch (error) {
     console.error('Error reseting player data: ', error);

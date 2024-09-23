@@ -1,4 +1,4 @@
-import useStore, { PlayerStore } from "../../../stores/StatsStore";
+import useStore, { PlayerStore } from '../../../stores/StatsStore';
 
 interface Player {
   Name: string;
@@ -43,9 +43,6 @@ const AddStats = ({
     // Get the correct player and statMode
     const selectedPlayer = players[playerIndex];
 
-    console.log(statMode);
-    
-
     // Dynamically increase the value of the specific stat (e.g., attack.error or service.ace)
     if (
       //@ts-ignore
@@ -53,20 +50,22 @@ const AddStats = ({
       //@ts-ignore
       selectedPlayer[statMode][key] !== undefined
     ) {
-      if ((statMode == "attack" && key == "error") || key == "kill") {
+      if ((statMode == 'attack' && key == 'error') || key == 'kill') {
         //@ts-ignore
         selectedPlayer[statMode][key] =
           //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
         //@ts-ignore
         selectedPlayer.attack.hits = (selectedPlayer.attack.hits as number) + 1;
-      } else if ((statMode == "service" && key == "ace") || key == "error") {
+      } else if ((statMode == 'service' && key == 'ace') || key == 'error') {
         //@ts-ignore
         selectedPlayer[statMode][key] =
           //@ts-ignore
           (selectedPlayer[statMode][key] as number) + 1;
+        //@ts-ignore
+        selectedPlayer.service.neutral =
           //@ts-ignore
-        selectedPlayer.service.neutral = (selectedPlayer.service.neutral as number) + 1;
+          (selectedPlayer.service.neutral as number) + 1;
       } else {
         //@ts-ignore
         selectedPlayer[statMode][key] =
@@ -86,7 +85,7 @@ const AddStats = ({
   };
 
   return (
-    <div className={statMode ? "section addstats" : "section d-none addstats"}>
+    <div className={statMode ? 'section addstats' : 'section d-none addstats'}>
       <table className="simpletable">
         <tbody>
           <tr className="simpletable__title">
