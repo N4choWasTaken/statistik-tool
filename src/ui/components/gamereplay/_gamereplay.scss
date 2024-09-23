@@ -1,68 +1,111 @@
 .gamereplay {
-    &__title {
-      vertical-align: baseline;
+  &__title {
+    vertical-align: baseline;
 
-      &__field {
-        &--wrapper {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          width: 100%;
-          text-align: center;
-          font-size: 1.6rem;
-          text-align: left;
-          padding: 0;
-          width: 100%;
-
-          & span {
-            width: 100%;
-            padding: 0.8rem 0.8rem 0 0.8rem;
-            display: block;
-            text-align: center;
-            font-weight: 300;
-          }
-        }
-      }
-    }
-
-    &__links {
-      color: $black;
-
-      &__wrapper {
-        margin-top: 1.6rem;
-      }
-    }
-
-    &__row {
-      &__field {
+    &__field {
+      &--wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
         text-align: center;
         font-size: 1.6rem;
-        color: $black;
         text-align: left;
-        border-left: 0.1rem solid $gray-400;
         padding: 0;
-
-        &--wrapper {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
+        width: 100%;
 
         & span {
-          padding: 0.8rem;
           width: 100%;
+          padding: 0.8rem 0.8rem 0 0.8rem;
           display: block;
           text-align: center;
-          border-left: 0.1rem solid $gray-400;
-
-          &:first-child {
-            border-left: 0.1rem solid $black;
-          }
+          font-weight: 300;
         }
       }
     }
-  
-    & tr:nth-child(2n+3) {
-      background-color: $secondary;
+  }
+
+  &__links {
+    color: $black;
+
+    &__wrapper {
+      margin-top: 1.6rem;
     }
   }
+
+  &__row {
+    &__field {
+      text-align: center;
+      font-size: 1.6rem;
+      color: $black;
+      text-align: left;
+      border-left: 0.1rem solid $gray-400;
+      padding: 0;
+
+      &--wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      & span {
+        padding: 0.8rem;
+        width: 100%;
+        display: block;
+        text-align: center;
+        border-left: 0.1rem solid $gray-400;
+
+        &:first-child {
+          border-left: 0.1rem solid $black;
+        }
+      }
+    }
+  }
+
+  & tr:nth-child(2n + 3) {
+    background-color: $secondary;
+  }
+
+  &__admincontrols {
+    padding: 2.4rem 0;
+    margin-top: 2.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    & h3 {
+      text-align: center;
+      width: 100%;
+    }
+
+    & .wizard__input__field {
+      width: 75%;
+    }
+
+    &--btn {
+      width: 20%;
+      height: 5.2rem;
+      font-size: 2.1rem;
+      border: none;
+      background-color: $secondary;
+      color: $gray-900;
+      cursor: pointer;
+      transition: all $ease;
+      border-radius: 1rem;
+
+      & svg {
+        transition: all $ease;
+        fill: $black;
+      }
+
+      &:hover {
+        background-color: $primary;
+        color: $white;
+
+        & svg {
+          fill: $white !important;
+        }
+      }
+    }
+  }
+}
