@@ -42,6 +42,11 @@
       border-left: 0.1rem solid $gray-400;
       padding: 0;
 
+      &--maxwidth {
+        max-width: 4.9rem;
+        font-size: 1.4rem;
+      }
+
       &--wrapper {
         display: flex;
         justify-content: space-between;
